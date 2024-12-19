@@ -16,32 +16,51 @@
 
 <body>
   <header>
-    <nav>
-      <div class="nav-wrapper teal">
+    <nav class="teal">
+      <div class="nav-wrapper">
         <a href="#" class="brand-logo center">Yerkezhan Abdullayeva</a>
-        <a href="#" data-target="sidebar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
       </div>
     </nav>
-
     <!-- Sidebar -->
-    <ul id="sidebar" class="sidenav">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="sidenav sidenav-fixed teal lighten-5" id="mobile-nav">
+      <li><a href="#about" class="teal-text">About</a></li>
+      <li><a href="#experience" class="teal-text">Experience</a></li>
+      <li><a href="#projects" class="teal-text">Projects</a></li>
+      <li><a href="#skills" class="teal-text">Skills</a></li>
+      <li><a href="#contact" class="teal-text">Contact</a></li>
     </ul>
   </header>
 
-  <main>
-    <!-- Sections... -->
+  <main style="margin-left: 250px;">
+    <!-- Intro Section -->
+    <section id="intro" class="section center-align">
+      <div class="container">
+        <h1>Hi, I'm <span class="teal-text">Yerkezhan Abdullayeva</span>.</h1>
+        <h5>Data Scientist | NLP Specialist | Machine Learning Enthusiast</h5>
+        <p>I specialize in building scalable NLP and machine learning solutions with a focus on real-world applications.</p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section scrollspy">
+      <div class="container">
+        <h3 class="center teal-text">About Me</h3>
+        <p>I have a Master's degree in Cognitive Systems and extensive experience in natural language processing (NLP) and machine learning...</p>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section scrollspy">
+      <div class="container">
+        <h3 class="center teal-text">Experience</h3>
+        <ul class="collection">
+          <li class="collection-item">...</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
     <section id="projects" class="section scrollspy">
       <div class="container">
         <h3 class="center teal-text">Projects</h3>
@@ -50,10 +69,8 @@
             <div class="card">
               <div class="card-content">
                 <span class="card-title">Named Entity Linking</span>
-                <p>Developed a Named Entity Linking system using Spacy and Flair, achieving high accuracy in real-world datasets.</p>
-              </div>
-              <div class="card-action">
-                <a href="projects/named-entity-linking.html" class="teal-text">Read More</a>
+                <p>Developed a Named Entity Linking system using Spacy and Flair...</p>
+                <a href="projects/named-entity-linking.html" class="btn teal">Learn More</a>
               </div>
             </div>
           </div>
@@ -61,16 +78,20 @@
             <div class="card">
               <div class="card-content">
                 <span class="card-title">Map Traversal Games</span>
-                <p>Built Python-based games to test the spatial reasoning of large language models, featured in a published conference paper.</p>
-              </div>
-              <div class="card-action">
-                <a href="projects/map-traversal-games.html" class="teal-text">Read More</a>
+                <p>Built Python-based games to test the spatial reasoning...</p>
+                <a href="projects/map-traversal-games.html" class="btn teal">Learn More</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section scrollspy">...</section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section scrollspy">...</section>
   </main>
 
   <footer class="section teal white-text center">
@@ -80,10 +101,10 @@
   <!-- Materialize JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
-    // Initialize Sidebar
+    // Initialize Materialize Components
     document.addEventListener('DOMContentLoaded', function () {
-      const elems = document.querySelectorAll('.sidenav');
-      M.Sidenav.init(elems);
+      M.Sidenav.init(document.querySelectorAll('.sidenav'));
+      M.ScrollSpy.init(document.querySelectorAll('.scrollspy'), { scrollOffset: 50 });
     });
   </script>
 </body>
