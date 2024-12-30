@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Enable static exports
-  basePath: '/portfolio', // Match your repository name
+  output: 'export',
+  basePath: '/portfolio',
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true,
   },
+  // This is important for GitHub Pages
+  assetPrefix: '/portfolio/',
 }
 
 module.exports = nextConfig
