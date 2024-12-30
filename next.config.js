@@ -5,8 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // This is important for GitHub Pages
   assetPrefix: '/portfolio/',
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
