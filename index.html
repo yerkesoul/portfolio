@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,12 +11,18 @@
 <body class="bg-background text-foreground">
     <div id="app">
         <!-- Sidebar -->
-        <nav id="sidebar" class="fixed left-0 top-0 bottom-0 w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-200 ease-in-out">
-            <!-- Sidebar content will be populated by JavaScript -->
+        <nav id="sidebar" class="fixed left-0 top-0 bottom-0 w-64 bg-white shadow-lg"></nav>
+            <ul class="p-4">
+                <li class="mb-4"><a href="#hero" class="text-black">Home</a></li>
+                <li class="mb-4"><a href="#skills" class="text-black">Skills</a></li>
+                <li class="mb-4"><a href="#projects" class="text-black">Projects</a></li>
+                <li class="mb-4"><a href="#education" class="text-black">Education</a></li>
+                <li class="mb-4"><a href="#experience" class="text-black">Experience</a></li>
+            </ul>
         </nav>
 
         <!-- Main Content -->
-        <div id="main-content" class="ml-0 transition-margin duration-200 ease-in-out">
+        <div id="main-content" class="ml-64">
             <!-- Hero Section -->
             <section id="hero" class="relative min-h-screen flex items-center justify-center bg-black text-white">
                 <!-- Hero content will be populated by JavaScript -->
@@ -65,9 +71,8 @@
 
     <script src="script.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-<script>
-    lucide.createIcons();
-</script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
-

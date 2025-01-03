@@ -1,23 +1,4 @@
 // Data
-const sidebar = document.getElementById('sidebar');
-sidebar.innerHTML = `
-  <div class="p-4 fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-10">
-    <div class="flex items-center justify-center mb-8">
-      <div class="w-16 h-16 rounded-full overflow-hidden">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portfolio_photo-errqhuAcOp8zYAuerKSeX2Yd4baQdd.png" alt="Yerkezhan Abdullayeva" class="w-full h-full object-cover">
-      </div>
-    </div>
-    <nav>
-      <ul class="space-y-2">
-        <li><a href="#hero" class="block py-2 px-4 hover:bg-gray-100 rounded">Home</a></li>
-        <li><a href="#skills" class="block py-2 px-4 hover:bg-gray-100 rounded">Skills</a></li>
-        <li><a href="#projects" class="block py-2 px-4 hover:bg-gray-100 rounded">Projects</a></li>
-        <li><a href="#education" class="block py-2 px-4 hover:bg-gray-100 rounded">Education</a></li>
-        <li><a href="#experience" class="block py-2 px-4 hover:bg-gray-100 rounded">Experience</a></li>
-      </ul>
-    </nav>
-  </div>
-`;
 const skillCategories = [
   {
     category: "Machine Learning & AI",
@@ -71,65 +52,101 @@ const projects = [
     slug: "master-thesis",
     date: "2024",
     description: "Assessment of Map Navigation and Spatial Reasoning Abilities of Large Language Models",
-    file: "projects/master-thesis.html"
+    details: [
+      "Developed five Python-based map traversal games to assess the spatial reasoning capabilities of LLMs.",
+      "Tested 15 large language models (GPT-4, Llama-3, Claude-3) through API calls and conducted quantitative and qualitative analysis.",
+      "Results were published as part of a conference paper.",
+      "The research focused on evaluating how well large language models can understand and navigate spatial relationships in various map-based scenarios.",
+      "Implemented different types of navigation challenges to test different aspects of spatial reasoning.",
+      "Created a comprehensive evaluation framework for assessing LLM performance in spatial tasks."
+    ],
+    link: "https://doi.org/10.48550/arXiv.2406.14035"
   },
   {
     title: "Environmental Agenda Detection",
     slug: "environmental-agenda",
     date: "2023",
     description: "Individual Research on Environmental Policy Detection",
-    file: "projects/environmental-agenda.html"
+    details: [
+      "Built text classification models using political data from the Manifesto Corpus.",
+      "Developed one-step and two-step classification models using BERT, RoBERTa, and XLM-RoBERTa.",
+      "Implemented sophisticated NLP techniques for accurate agenda detection.",
+      "Created a pipeline for processing and analyzing political manifestos.",
+      "Achieved significant improvements in classification accuracy compared to baseline models.",
+      "Developed methods for handling multilingual political texts."
+    ]
   },
   {
     title: "Guess What Game",
     slug: "guess-what",
     date: "2022",
     description: "Computer Vision + NLP Game",
-    file: "projects/guess-what.html"
+    details: [
+      "Built an ensemble model combining ResNET and LSTM architectures.",
+      "Implemented dialogue system between game agents.",
+      "Created an interactive interface for human-AI gameplay.",
+      "Developed sophisticated image recognition capabilities.",
+      "Implemented natural language understanding for game interactions.",
+      "Optimized model performance for real-time gameplay."
+    ]
   },
   {
     title: "ChatBot for Charity",
     slug: "charity-chatbot",
     date: "2024",
     description: "Arman Project Chatbot",
-    file: "projects/charity-chatbot.html"
+    details: [
+      "Developed a Telegram chatbot for charity project Arman.",
+      "Implemented AWS cloud server deployment.",
+      "Created and managed SQL database for user interactions.",
+      "Developed natural language understanding capabilities.",
+      "Implemented secure donation processing system.",
+      "Created administrative dashboard for charity management."
+    ]
   },
   {
     title: "NLP to SQL Translator",
     slug: "nlp-to-sql",
     date: "2023",
     description: "Translating Natural Language Queries to SQL",
-    file: "projects/nlp-to-sql.html"
+    details: [
+      "Developed a system to convert natural language questions into SQL queries.",
+      "Utilized advanced NLP techniques and machine learning models for accurate translation.",
+      "Implemented a user-friendly interface for non-technical users to query databases.",
+      "Integrated with multiple database systems for wide compatibility.",
+      "Achieved high accuracy in query translation across various domains.",
+      "Implemented error handling and query optimization features."
+    ]
   },
   {
     title: "Subjectivity Classification",
     slug: "subjectivity-classification",
     date: "2022",
     description: "Classifying Text as Subjective or Objective",
-    file: "projects/subjectivity-classification.html"
+    details: [
+      "Developed a machine learning model to classify text as subjective or objective.",
+      "Utilized various NLP techniques including word embeddings and deep learning models.",
+      "Preprocessed and cleaned large datasets of labeled text.",
+      "Implemented and compared multiple classification algorithms.",
+      "Achieved high accuracy in distinguishing between subjective and objective statements.",
+      "Created a web interface for real-time classification of user-input text."
+    ]
   },
   {
     title: "Sentiment Analysis on Twitter Data",
     slug: "sentiment-analysis-twitter",
     date: "2022",
     description: "Analyzing Sentiment in Twitter Posts",
-    file: "projects/sentiment-analysis-twitter.html"
+    details: [
+      "Developed a sentiment analysis model for Twitter data.",
+      "Utilized the Twitter API to collect large volumes of tweets.",
+      "Implemented data cleaning and preprocessing techniques specific to social media text.",
+      "Developed and trained machine learning models for sentiment classification.",
+      "Conducted time series analysis to track sentiment trends over time.",
+      "Created visualizations to present sentiment analysis results effectively."
+    ]
   }
 ];
-
-function createProjectCard(project) {
-  return `
-    <div class="project-card bg-card p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-      <h3 class="text-xl font-semibold mb-2">${project.title}</h3>
-      <p class="text-secondary mb-4">${project.date}</p>
-      <p class="mb-4">${project.description}</p>
-      <a href="${project.file}" class="inline-block bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
-        Learn More
-      </a>
-    </div>
-  `;
-}
-
 
 const education = [
   {
@@ -191,7 +208,7 @@ function createProjectCard(project) {
       <h3 class="text-xl font-semibold mb-2">${project.title}</h3>
       <p class="text-secondary mb-4">${project.date}</p>
       <p class="mb-4">${project.description}</p>
-      <a href="${project.file}" class="inline-block bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">
+      <a href="#" class="inline-block bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors" onclick="showProjectDetails('${project.slug}')">
         Learn More
       </a>
     </div>
@@ -254,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Populate sidebar
   const sidebar = document.getElementById('sidebar');
   sidebar.innerHTML = `
-    <div class="p-4 h-full w-64 bg-white shadow-lg z-10">
+    <div class="p-4">
       <div class="flex items-center justify-center mb-8">
         <div class="w-16 h-16 rounded-full overflow-hidden">
           <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portfolio_photo-errqhuAcOp8zYAuerKSeX2Yd4baQdd.png" alt="Yerkezhan Abdullayeva" class="w-full h-full object-cover">
@@ -271,10 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </nav>
     </div>
   `;
-
-  // Adjust main content to not overlap with sidebar
-  const mainContent = document.getElementById('main-content');
-  mainContent.classList.add('ml-64');
 
   // Toggle sidebar
   const toggleSidebar = () => {
@@ -305,7 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
           yerkezhan.abdullayeva@gmail.com
         </a>
-        <a href="https://www.linkedin.com/in/yerkezhan-abdullayeva/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-primary transition-colors">
+        <a href="tel:+4915752668911" class="flex items-center gap-2 hover:text-primary transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+          +49 157 5266 8911
+        </a>
+        <a href="https://www.linkedin.com/in/yerkesoul" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-primary transition-colors">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd"></path></svg>
           Yerkezhan
         </a>
