@@ -21,6 +21,15 @@
   --sidebar-width-collapsed: 4rem;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  padding: 0 3cm; /* 3 cm padding on each side */
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -48,35 +57,74 @@
 /* Custom styles */
 .skill-card {
   transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: #f9f9f9; /* Light grey color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* More shadow */
+  border: 1px solid #e0e0e0; /* Visible shape */
+}
+
+.skill-card-content {
+  display: none;
+  transition: max-height 0.3s ease;
+}
+
+.skill-card.open .skill-card-content {
+  display: block;
+  max-height: 500px; /* Adjust as needed */
 }
 
 .skill-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* More shadow on hover */
 }
 
 .project-card {
   transition: all 0.3s ease;
+  background-color: #f9f9f9; /* Light grey color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* More shadow */
+  border: 1px solid #e0e0e0; /* Visible shape */
+}
+
+.project-card a {
+  background-color: #808080; /* Grey color */
+  color: white;
+}
+
+.project-card a:hover {
+  background-color: #a0a0a0; /* Slightly lighter grey on hover */
 }
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* More shadow on hover */
 }
 
-#sidebar {
-  width: var(--sidebar-width);
-  background-color: var(--card);
+#topbar {
+  width: 100%;
+  background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2rem; /* Adjust the padding as needed */
+  z-index: 10;
+}
+
+#topbar ul {
+  display: flex;
+  gap: 1.5rem; /* Adjust the gap as needed */
 }
 
 #main-content {
-  margin-left: var(--sidebar-width);
-  transition: margin-left 0.3s ease-in-out;
+  margin-top: 4rem;
+  transition: margin-top 0.3s ease-in-out;
+}
+
+#hero {
+  background-color: white;
+  color: var(--foreground);
 }
