@@ -23,17 +23,51 @@
         <div id="main-content" class="mt-16 px-4">
             <!-- About Section -->
             <section id="about" class="py-20">
-                <h2 class="text-3xl font-bold text-center text-primary mb-8">About</h2>
-                <div id="about-list" class="space-y-8">
-                    <!-- About content will be populated by JavaScript -->
-                </div>
-                <div class="text-left mt-8">
-                    <a href="index.html#projects" class="inline-block px-4 py-2 rounded transition-colors bg-gray-300 text-primary-foreground shadow-md hover:bg-gray-400">My Projects</a>
+                <h2 class="text-3xl font-bold text-center text-primary mb-8">About Me</h2>
+                <div class="flex flex-col md:flex-row">
+                    <!-- Image Section -->
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <img src="pictures/yerkezhan.png" alt="Yerkezhan Abdullayeva" class="w-full h-auto object-cover">
+                    </div>
+
+                    <!-- Text Section -->
+                    <div class="md:w-2/3 pl-6 text-left space-y-6">
+                        <p class="text-lg">
+                            I am a Machine Learning Engineer and NLP Data Analyst. My area of interest is conversational agents with application of AI or other NLP methods.
+                        </p>
+                        <p class="text-lg">
+                            Some little information about my background: I have a Master of Science in Cognitive Systems obtained from the University of Potsdam, Germany. I obtained my bachelor's degree in Computational Linguistics from Kazakh National University of Al-Farabi. The switch between linguistics and programming was challenging for me, but I loved my journey! I also have work experience in NLP Data Analysis in one of Berlin-based companies - UNICEPTA Corporate Intelligence.
+                        </p>
+
+                        <!-- Individual Recommendation Windows -->
+                        <div class="py-10 bg-gray-100 rounded-md shadow-md mx-auto max-w-4xl mt-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="p-4 border border-gray-300 rounded-md bg-white text-sm">
+                                    <p class="font-bold">
+                                        <a href="https://www.ling.uni-potsdam.de/~das/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Prof. Dr. David Schlangen</a>
+                                    </p>
+                                    <p class="text-xs italic">Professor of University of Potsdam</p>
+                                    <p class="mt-2">
+                                        I can unreservedly recommend Yerkezhan for any position in Natural Language Processing, or more generally Artificial Intelligence or Data Analysis where knowledge of state of the art programming and analysis methods is required. She will be a great addition to any team, as she was to my research group.
+                                    </p>
+                                </div>
+                                <div class="p-4 border border-gray-300 rounded-md bg-white text-sm">
+                                    <p class="font-bold">
+                                        <a href="https://www.linkedin.com/in/thiago-de-sousa-silveira-58175890/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Thiago de Sousa Silveira</a>
+                                    </p>
+                                    <p class="text-xs italic">Data Scientist at UNICEPTA Corporate Intelligence</p>
+                                    <p class="mt-2">
+                                        I highly recommend Yerkezhan Abdullayeva as a dedicated and professional Data Analyst. As her direct supervisor for her internship at Unicepta Corporate Intelligence, she consistently demonstrated enthusiasm and commitment to producing high-quality work. Yerkezhan implemented data processing modules to prepare data for NLP tasks, performing thorough analyses on unstructured textual documents and generating insightful reports. Her technical and problem-solving skills have shown significant growth, particularly in Python and data processing.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- Footer -->
-            <footer class="bg-primary text-primary-foreground py-4">
+            <footer class="bg-primary text-primary-foreground py-4 mt-10">
                 <div class="container mx-auto text-center">
                     <p>&copy; <span id="current-year"></span> Yerkezhan Abdullayeva | Portfolio</p>
                 </div>
@@ -45,44 +79,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
-
-        // Populate about section
-        const aboutList = document.getElementById('about-list');
-        const education = [
-            {
-                degree: "Master of Science in Cognitive Systems",
-                institution: "Universität Potsdam, Germany",
-                period: "October 2020 - September 2024",
-                details: "Major: Advanced NLP, Machine Learning, Data Science, Artificial intelligence, Deep learning"
-            },
-            {
-                degree: "Bachelor of Computational Linguistics",
-                institution: "Al-Farabi Kazakh National University, Kazakhstan",
-                period: "September 2016 - June 2020",
-                details: ""
-            }
-        ];
-
-        const workExperience = [
-            {
-                title: "Natural Language Processing Data Analyst",
-                company: "UNICEPT A Corporate Intelligence (Berlin)",
-                period: "April 2022 - July 2023",
-                responsibilities: [
-                    "Developed data mining and machine learning modules for named entity recognition (NER), event extraction, and relationship extraction from unstructured texts using Python.",
-                    "A team of 2 people (myself included) replaced a department with a model.",
-                    "Enhanced NLP frameworks and libraries, improving accuracy and efficiency in text processing tasks.",
-                    "Processed and analyzed large-scale unstructured textual data and data visualizations to inform business decisions."
-                ]
-            }
-        ];
-
-        education.forEach(edu => {
-            aboutList.innerHTML += createEducationCard(edu);
-        });
-        workExperience.forEach(exp => {
-            aboutList.innerHTML += createExperienceCard(exp);
-        });
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

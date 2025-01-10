@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +8,88 @@
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body class="bg-background text-foreground">
-    <div class="container py-10">
+    <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
+        <ul class="flex space-x-4 justify-end">
+            <li><a href="https://github.com/yerkesoul/TelegramBot_Charity" class="text-black">Code on Github</a></li>
+            <li><a href="../index.html" class="text-black">Back to Portfolio</a></li>
+        </ul>
+    </nav>
+    <div class="container py-10 mt-16">
         <h1 class="text-4xl font-bold mb-6">ChatBot for Charity</h1>
         <p class="text-secondary mb-4">Date: 2024</p>
-        <p class="mb-4">Arman Project Chatbot</p>
-        <ul class="list-disc ml-6 space-y-3">
-            <li>Developed a Telegram chatbot for charity project Arman.</li>
-<li>Implemented AWS cloud server deployment.</li>
-<li>Created and managed SQL database for user interactions.</li>
-<li>Implemented secure donation processing system.</li>
-        </ul>
+        <div class="prose max-w-none">
+            <h2 class="font-bold mb-4">Developing a Chatbot for a Charity Initiative 🎄</h2>
+            <p>Despite being thousands of kilometers away, I had the incredible opportunity to contribute to a heartfelt charity initiative by developing and deploying a chatbot for a project in Astana. The initiative, named Arman, was organized by my cousin, Dana Yessimkhanova, and Akerke Korganbekova, as part of their annual tradition of finding "Secret Santa"—or "Deduska Moroz" (Grandfather Frost) in post-Soviet countries—for children with special needs and those in orphanages.</p>
+            <p>Supporting the project remotely from Germany, I created a chatbot to automate the process of matching children’s wish-filled letters with volunteers eager to fulfill them. It was incredibly rewarding to contribute to this meaningful initiative and help bring joy to so many children.</p>
+            <figure>
+                <img src="../diagrams/Chatbot/chatbot_architecture.jpeg" alt="Manifesto Project Logo" class="w-1/2 mb-4">
+                <figcaption class="text-center text-sm text-gray-600">Figure 1: Architecture of the chatbot</figcaption>
+            </figure>
+            <p>This architecture illustrates a cloud-based system using AWS for event or task management, referred to as "Arman." It integrates AWS services and the Telegram API for communication. Here's an overview:</p>
+            <h3 class="font-bold mb-4">Components and Workflow:</h3>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Telegram API:</strong>
+                    <p>Handles user interactions via messages or updates.</p>
+                </li>
+                <li><strong>EC2 Instance:</strong>
+                    <p>Hosts application logic, processes requests from Telegram, and interacts with the database and storage.</p>
+                    <p>Backed by EBS for persistent storage.</p>
+                </li>
+                <li><strong>SQL Database:</strong>
+                    <p>Stores structured data like user info and event details.</p>
+                </li>
+                <li><strong>S3 Bucket:</strong>
+                    <p>Stores unstructured data (e.g., logs, reports) and feeds the dashboard.</p>
+                </li>
+                <li><strong>Dashboard for Organizers:</strong>
+                    <p>A web app that visualizes data from the S3 bucket for monitoring and management.</p>
+                </li>
+                <li><strong>VPC:</strong>
+                    <p>Ensures secure communication between components.</p>
+                </li>
+            </ul>
+
+            <figure>
+                <img src="../diagrams/Chatbot/arman.jpeg" alt="Letter" class="w-1/2 mb-4">
+                <figcaption class="text-center text-sm text-gray-600">Figure 2: Organizers went to the Public Fund and asked the children to write a letter to Deduska Moroz</figcaption>
+            </figure>
+
+            <h3 class="font-bold mb-4">Data Flow:</h3>
+            <ul class="list-disc list-inside space-y-2">
+                <li>Users interact via Telegram, with requests processed by the EC2 instance.</li>
+                <li>The EC2 instance fetches or updates data in the SQL database.</li>
+                <li>Logs/reports are stored in the S3 bucket for dashboard visualization.</li>
+                <li>The VPC ensures security and efficient communication.</li>
+            </ul>
+
+            <figure>
+                <img src="../diagrams/Chatbot/letter.jpeg" alt="Letter" class="w-1/2 mb-4">
+                <figcaption class="text-center text-sm text-gray-600">Figure 2: Letter which belongs to an 11-year-old boy named Sultan</figcaption>
+            </figure>
+
+            <h3 class="font-bold mb-4">The Goal</h3>
+            <p>The goal of Arman Chat Bot was to streamline the process of assigning children’s letters—filled with their wishes—to dedicated volunteers.</p>
+            <h3 class="font-bold mb-4">How the Chatbot Worked:</h3>
+            <ol class="list-decimal list-inside space-y-2">
+                <li>A user learns about the rules of Arman and then enters their name and phone number.</li>
+                <li>They select a number between 1 and 275.</li>
+                <li>The bot shares details about the chosen child, including their wish, a phone number, and a link to their letter in PDF format. For example, I have attached one letter which belongs to an 11-year-old boy named Sultan, whose wish was to receive LEGO from Deduska Moroz.</li>
+            </ol>
+
+           
+
+            <h3 class="font-bold mb-4">💻 Tech Challenges</h3>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Time Pressure:</strong> I had just 4 days to develop, test, and deploy the chatbot solution.</li>
+                <li><strong>Budget Constraints:</strong> With no budget, I had to be resourceful and creative in building the system.</li>
+                <li><strong>AWS Server Administration:</strong> Managing and administering the AWS server added a valuable hands-on learning experience as a server admin.</li>
+            </ul>
+            <h3 class="font-bold mb-4">🎯 Results</h3>
+            <p>Despite the challenges, the project was completed in just 3 days! All 275 letters found their Deduska Moroz, including follow-ups with volunteers to ensure they understood the responsibility of being a Secret Santa. While some letters had to be reassigned due to changes, the overwhelming response from volunteers was heartwarming, with some taking on as many as eight letters!</p>
+            <p>It is important to note that Public Fund "БАҚЫТТЫ ШАҢЫРАҚ" helped in organization of the project too.</p>
+            <p>A special thank you to my sister Dana and organizers Akerke and Balnur for letting me be part of something so meaningful. Together, we showed how technology can be a force for good! 🎄✨</p>
+            
+        </div>
         <a href="../index.html" class="block mt-6 text-primary hover:underline">← Back to Portfolio</a>
     </div>
 </body>

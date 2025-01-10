@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,17 +8,149 @@
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body class="bg-background text-foreground">
-    <div class="container py-10">
-        <h1 class="text-4xl font-bold mb-6">Guess What Game</h1>
+    <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
+        <ul class="flex space-x-4 justify-end">
+            <li><a href="https://github.com/yerkesoul/Beyond-Task-Success-NAACL2019" class="text-black">Code on Github</a></li>
+            <li><a href="../index.html" class="text-black">Back to Portfolio</a></li>
+        </ul>
+    </nav>
+    <div class="container py-10 mt-20">
+        <h1 class="text-4xl font-bold mb-6">Language, Vision & Interaction Project: "Guess What?" Game</h1>
         <p class="text-secondary mb-4">Date: 2022</p>
         <p class="mb-4">Computer Vision + NLP Game</p>
         <ul class="list-disc ml-6 space-y-3">
-            <li>Built an ensemble model combining ResNET and LSTM architectures.</li>
-<li>Implemented dialogue system between game agents.</li>
-<li>Created an interactive interface for human-AI gameplay.</li>
-<li>Developed sophisticated image recognition capabilities.</li>
         </ul>
-        <a href="../index.html" class="block mt-6 text-primary hover:underline">← Back to Portfolio</a>
+        <div class="prose max-w-none">
+            <h2 class="font-bold mb-4">Abstract</h2>
+            <p>This project analyzes the failure cases of the GDSE-SL-DM model <a href="#shekhar2019">(Shekhar et al., 2019)</a> and later according to this analysis, it describes changes of dialogue encoding, which is supposed to improve the performance of the Question Generator. The error inspection is divided into two parts: statistical analysis on failed dialogues of validation and test sets and linguistic analysis of 100 dialogues compared to the context depicted on the photo.</p>
+            <p>We find that the Question Generator is the component which needs the most adjustments and concluded that capabilities of the Question Generator to avoid asking the same question again or questions irrelevant to the context and/or prior questions might be improved with an enhanced encoding of the past dialogue.</p>
+            
+            <div class="my-4">
+                <img src="../diagrams/guesswhat/guess_what_example.png" alt="Guess What Example" class="w-1/2 h-auto mb-4">
+            </div>
+            
+            <h2 class="font-bold mb-4">Introduction</h2>
+            <p>The baseline for the model was described in <a href="#DeVries2017">(de Vries et al., 2017)</a>, then in 2019 the joint encoder was introduced and the architecture of the Questioner agent was updated with the grounded dialogue state encoder(GDSE) <a href="#sh2">(Shekhar et al., 2019)</a>. Moreover, in the same year one more adjustment to the GDSE was introduced: a decision making component <a href="#shekhar2019">(Shekhar et al., 2019)</a>. For the dialogue to be consistent and logical, while eliminating unnatural repetitions and irrelevant questions in the dialogue, a new decision-making component is added and with its main goal being to teach the conversational agent when to stop the conversation, according to the dialogue history and the current context. Two learning approaches were applied in the model: supervised learning and cooperative learning.</p>
+
+            <h2 class="font-bold mb-4">Task Description</h2>
+            <p>Firstly, an analysis of the failure cases is conducted and the goal of this investigation is to determine the changes that should be done. We decided to evaluate failed conversations of test and validation sets to better understand what may cause the model to fail.</p>
+
+            <h2 class="font-bold mb-4">Data Description</h2>
+            <p>The task for collecting the dataset is taken from real world game, which has two players: the oracle and the guesser and the goal for the last one is to identify the target object by asking multiple questions. For collecting the dataset two participants are provided with MS-COCO dataset <a href="#coco">(Lin et al., 2014)</a>. One participant takes the role of the oracle, who knows the target object in the image. The other participant plays as the guesser, being provided with list of candidate objects. The guesser then has to figure out what the target object is by asking yes/no questions to the oracle.</p>
+            <p>The dataset used for training the model is the "GuessWhat?!" dataset, which was obtained via Amazon Mechanical Turk by <a href="#DeVries2017">(de Vries et al., 2017)</a>. Around 155k conversations only in English and roughly 66k unique pictures make up this dataset. The average number of questions and answers in a dialogue is 5.2.</p>
+
+            <h2 class="font-bold mb-4">Model Architecture</h2>
+            <p>The latest architecture of the model presented in <a href="#shekhar2019">(Shekhar et al., 2019)</a> is presented in the Figure below. It includes both the visually grounded dialogue encoder as well as the decision making module.</p>
+            <figure class="my-4">
+                <img src="../diagrams/guesswhat/arch.png" alt="Proposed visually-grounded dialogue state encoder with a decision-making component." class="w-1/2 h-auto">
+                <figcaption>Proposed visually-grounded dialogue state encoder with a decision-making component.</figcaption>
+            </figure>
+            <p>These are the main components in the architecture of GDSE-SL-DM model:</p>
+            <h3 class="font-bold mb-4">Question Generator</h3>
+            <p>The Question Generator is a natural language generation model that creates the questions asked by the guesser model. Its goal is to ask questions that help to find the target object. The model gets the extracted image features and the history of the discourse as input at each interval in the dialogue and produces the subsequent question one word at a time. This is done by using the encoded dialogue and visual features as hidden state of an LSTM and then generating sequences of tokens by taking the argmax of the LSTM's output.</p>
+            <h3 class="font-bold mb-4">Guesser</h3>
+            <p>Overall, Guesser model predicts the target object. The model uses the annotations in the MS-COCO dataset to represent potential items by their object category and spatial coordinates, then they are used as an input for a multi-layer perceptron (MLP). The MLP returns a probability for each potential object. Furthermore, LSTM-processed dialogue history, whose hidden state is the same size as the MLP output, is likewise taken as input. As a result each potential object in the image receives a score from the dot product of the two.</p>
+            <h3 class="font-bold mb-4">Encoder</h3>
+            <p>The encoder merges linguistic and visual information and results in a better encoding of the input context. This module uses trained word embeddings to encode each word token. The embedded dialogue is then passed into a LSTM. The final hidden state of the encoder's LSTM is concatenated with the visual features at each question-answer step, subsequently put through a linear layer for resizing and a hyperbolic tangent activation function to produce the final layer, which is then passed to further modules such as the question generator or the decider.</p>
+            <p>To extract image features from the MS-COCO dataset a ResNet152 model is used.</p>
+            <h3 class="font-bold mb-4">Oracle</h3>
+            <p>This part of the model produces a yes/no answer given a natural language question. The Oracle is already informed about the target object and uses three embeddings as an input, namely: the spatial coordinates of the object, the category of the object and the question generated by the question generator.</p>
+            <h3 class="font-bold mb-4">Decider</h3>
+            <p>This is the latest change in the architecture which decides whether to ask a follow-up question to identify the target referent, or to stop the conversation and make a guess. It has resulted in the task success increase of up to 9% in comparison with earlier version of GDSE-SL <a href="#sh2">(Shekhar et al., 2019)</a>. The decider is implemented as a Multi Layer Perceptron. The MLP consist of three hidden layers of dimensions 256, 64, and 16, respectively.</p>
+
+            <h2 class="font-bold mb-4">Replication Experiment</h2>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>3Q</th>
+                        <th>5Q</th>
+                        <th>8Q</th>
+                        <th>10Q</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GDSE-SL-DM</td>
+                        <td>40.0</td>
+                        <td>44.4</td>
+                        <td>46.5</td>
+                        <td>47.0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Our replication results with accuracies for maximum of 3, 5, 8 and 10 questions</p>
+            <p>During the replication process particular segments of the script was changed and re-adapted to up-to-date versions. In our replication experiment we tried to reproduce the results seen in Table 1, to be precise the results from the <em>GDSE-SL-DM</em> model. This model was provided by the authors as a pre-trained binary and was supposedly the best performing model the authors trained.</p>
+            <p>The results of our reproduction experiment can be seen in the table above. Reproduction experiment was concluded with a little drop in the accuracy which was 2.3% and 2.6% for with the 5-questions model and with the 8-questions model respectively. We are not completely sure as to where this difference in accuracy originates from but there are multiple options that could have lead to this. The most likely option in our opinion is that the differences in the dataset splits have caused the model (which was already trained by the authors) to perform worse. The test set used by us in the reproduction experiment is not the same test set that the authors used in the original experiment.</p>
+
+            <h2 class="font-bold mb-4">Failure Analysis</h2>
+            <p>The result of the accuracy score did not go reasonably higher than 50% and there were no significant changes throughout the experiment starting from Baseline and ending with the GDSE-SL-DM model.</p>
+            <h3 class="font-bold mb-4">Task Description</h3>
+            <p>To understand what could lead the model to failure, we decided to analyze unsuccessful dialogues of test and validation sets, which were 10877 cases and 11049 cases respectively. The goal is to identify the problem through failure analysis and improve the result of the model. This could give us a hint on the direction of our changes and show the weakness of the model based on real examples of missteps. We have selected 100 failure examples deriving out of these 11049 failure validation cases and this dataset is divided into 3 parts:</p>
+            <ol>
+                <li>First 30 examples have identical target-guess pairs and also non-identical target-guess pairs.</li>
+                <li>From 30th example to the 50th example there are only identical target-guess pairs, which means that the guessed and the target object are the same object type, but due to different reasons, they were wrongly identified. For instance, there could be 4 people in the picture and the model found the wrong person.</li>
+                <li>From the 50th example to the 100th example the examples are non-identical target-guess pairs. For example, the target is "bear", but the model guessed wrongly and picked "dog".</li>
+            </ol>
+            <h3 class="font-bold mb-4">Statistical Analysis</h3>
+            <p>Overall, there are 1215 target-guess pairs in the test set and only 78 target-guess pairs are identical, but just these 78 identical target-guess pairs make up 73.4% of the whole failure cases. It is very fascinating that more than 2/3 of the failure cases are happening when the model can find the type of object but is not able to find the right one out of the available options. So if we have a look at the examples of the failure cases from the 30th to the 50th, where we have identical target-guessed pairs, the target object is not the only one of its type, and there are at least 2 objects as the target object.</p>
+            <h3 class="font-bold mb-4">Structure of Questions</h3>
+            <p>Generally, there are 11049 dialogues, and each one consists of 10 questions, then we have 110490 questions in total. The model generates only closed questions as the Oracle is able to answer "yes" or "no". Mainly the questions start with "Is it" phrase and this type of questions make up 80% of all the questions asked in the 11049 failed dialogues, to be exact, 88515 questions. Further, this type divides into 3 sub-types:</p>
+            <ol>
+                <li>Direct Questions-the questions starting with "Is it a" and "Is it the", which occur 39414 and 31423 times respectfully.</li>
+                <li>Location Questions-the questions, where with no interrogative pronouns in the dialogues, but the QGen still tries to locate the objects, so it adds place prepositions such as "in", "at" and "on" to the "Is it" bigram. The locations questions occur 9714 times, whereas "Is it in" trigram occurs 2002 times, "Is it at" trigram occurs 3081 times and "Is it on" trigram occurs 4631 times.</li>
+                <li>The remainder questions-the questions that do not indicate neither a direct question, nor a location question and too vague to generalize. The table below, which represents the most common 10 remainder questions, shows that some questions start with bizarre words. For example, the most common initial bigram is "Is wooden", if we look at the full question with these bigrams, then we encounter questions like "is wooden glove a structure?" and "is wooden glove a white he?". These questions are not even comprehensible by a human-being, furthermore do not have hidden or poly-semantic meaning. Another ridiculous question instance is "sauce inanimate eating the places heads ?". Also, there are 381 questions that start with this "sauce inanimate" bigram.</li>
+            </ol>
+            <figure class="my-4">
+                <img src="../diagrams/guesswhat/lstm-embedding.PNG" alt="Sentence encoding architecture used in the original model. With batch size B, padded sentence length L, embedding dimension E and LSTM hidden size H." class="w-1/2 h-auto">
+                <figcaption>Sentence encoding architecture used in the original model. With batch size B, padded sentence length L, embedding dimension E and LSTM hidden size H.</figcaption>
+            </figure>
+            <h3 class="font-bold mb-4">Discussion</h3>
+            <p>The result of the failure analysis demonstrates that we cannot blame only one component of the architecture for leading to the failure. When one component makes a mistake, it later misfires the other ones. Along with the components of the architecture, some pictures from the MS-COCO dataset <a href="#coco">(Lin et al., 2014)</a> caused misleading and were annotated wrongly. However, poor dialogue construction is the most noticeable factor among other reasons for the deterioration of the model.</p>
+
+            <h2 class="font-bold mb-4">Experiment: Dialogue Encoding</h2>
+            <h3 class="font-bold mb-4">Task Description</h3>
+            <p>The result of the failure cases analysis showed that the quality of the questions was poor and the question generation process needed some adjustments. In the architecture of the GDSE-SL-DM model, the dialogue representation is obtained by feeding trained pytorch word embeddings into a LSTM and using this LSTM's hidden state as sentence embedding. The architecture can be seen in the figure below.</p>
+            <figure class="my-4">
+                <img src="../diagrams/guesswhat/bert-encoder.PNG" alt="Modified sentence encoding architecture using BERT-base. With batch size B and padded sentence length L." class="w-1/2 h-auto">
+                <figcaption>Modified sentence encoding architecture using BERT-base. With batch size B and padded sentence length L.</figcaption>
+            </figure>
+            <h3 class="font-bold mb-4">New Encoder Description</h3>
+            <p>BERT, which stands for Bidirectional Encoder Representations from Transformers, is a transformer architecture developed by Google <a href="#devlin-etal-2019-bert">(Devlin et al., 2019)</a>. BERT is pre-trained on two independent yet connected Natural language processing tasks that use this bidirectional functionality: Masked Language Modeling and Next Sentence Prediction. For this experiment we are using this model's ability to encode language since natural language understanding is one of the biggest strengths of this model architecture.</p>
+
+            <h3 class="font-bold mb-4">Results</h3>
+            <p>In this section we wanted to compare the results from the original paper and the replication to the results we got from our modified model. This however is not possible since we ran into issues during the training process. The most significant reason being the time constraint of learning this modified model. The modified model is much larger and thus takes a lot longer to train. One epoch on the original model was trained in a matter of 2-3 minutes on our setup which meant our training was complete in only a few hours (when training for 100 epochs as was done in the original experiment). When training the whole modified model it took us more than 50 times that amount of time to train a single epoch due to extended pre-processing, reduced batch size and of course larger model size.</p>
+            <p>Our results show that the augmented model is completely functional without running into issues. The performance of the model however is close to that of an untrained model with an accuracy of 16% on the test set which is basically random guessing. It should, however, be considered that this is a non-tuned, barely trained (10 out of 100 epochs) model which does not represent the true potential of this architecture.</p>
+
+            <h2 class="font-bold mb-4">Conclusion</h2>
+            <p>To summarize, replicating the results from the paper was challenging mostly because the dataset the authors referred to was no longer available and we got our dataset from a different source. This dataset had a different layout and it is unclear whether the train/val/test split was the same. This, along with some casting loss and a potentially different random seed, is how we explain the 2% difference in results between the authors and our reproduction.</p>
+            <p>The analysis had revealed several reasons for the failure. However, the most obvious cause for the model's decline, among others, is the poor dialogue structuring. The investigation showed that the questions were not well-connected with each other and the structure of the questions lacked some description.</p>
+
+            <h2 class="font-bold mb-4">Linguistic Analysis</h2>
+            <figure class="my-4">
+                <img src="../diagrams/guesswhat/distribution.png" alt="Figure: The most common first 20 target-guess pairs in failure test set" class="w-1/2 h-auto">
+                <figcaption>Figure: The most common first 20 target-guess pairs in failure test set</figcaption>
+            </figure>
+            <p>Even though the Oracle is informed about the target object and sometimes it was answering the questions illogically. For example: Peculiar failure cases happened in the dialogues of the failure examples:</p>
+            <ol>
+                <li>In the 12th example when the target was “tv”, the answer to the question “is it in the shirt hanging them somewhere?” was “yes”.</li>
+                <li>In the 26th example when the target was “person”, the answer to the question “a wooden counter vertical desk?” was “yes”.</li>
+                <li>In the 47th example when the target was “horse”, the answer to the question “is it the places wheels?” was “yes”.</li>
+                <li>In the 68th example when the target was “dining table”, the answer to the question “is it the table?” was “no”.</li>
+            </ol>
+            <figure class="my-4">
+                <img src="../diagrams/guesswhat/top20_pairs.png" alt="Figure: Distribution of target elements in validation set" class="w-1/2 h-auto">
+                <figcaption>Figure: Distribution of target elements in validation set</figcaption>
+            </figure>
+            <h2 class="font-bold mb-4">References</h2>
+            <ol class="list-decimal list-inside space-y-2">
+                <li>Harm de Vries, Florian Strub, Sarath Chandar, Olivier Pietquin, Hugo Larochelle, and Aaron C. Courville. 2017. Guesswhat?! visual object discovery through multi-modal dialogue. In Conference on Computer Vision and Pattern Recognition (CVPR).</li>
+                <li>Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. BERT: Pre-training of deep bidirectional transformers for language understanding. In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), pages 4171–4186, Minneapolis, Minnesota. Association for Computational Linguistics.</li>
+                <li>Dan Hendrycks and Kevin Gimpel. 2016. Gaussian error linear units (gelus).</li>
+                <li>Shekhar, Alberto Testoni, Raquel Fernández, and Raffaella Bernardi. 2019a. Jointly learning to see, ask, decide when to stop, and then guesswhat.</li>
+                <li>Ravi Shekhar, Aashish Venkatesh, Tim Baumgärtner, Elia Bruni, Barbara Plank, Raffaella Bernardi, and Raquel Fernández. 2019b. Beyond task success: A closer look at jointly learning to see, ask, and guesswhat. In NAACL.</li>
+                <li>M. Maire T.-Y. Lin, and, S. Belongie, J. Hays, P. Perona, D. Ramanan, P. Dollar, and C. L. Zitnick. 2014. Microsoft coco: Common objects in context. In Proceedings of ECCV (European Conference on Computer Vision).</li>
+            </ol>
     </div>
 </body>
 </html>

@@ -1,71 +1,16 @@
-// Data
-const skillCategories = [
-  {
-    category: "Data Analysis",
-    skills: [
-      { name: "Pandas", level: 90 },
-      { name: "NumPy", level: 85 },
-      { name: "Matplotlib", level: 80 },
-      { name: "Seaborn", level: 75 },
-      { name: "Excel", level: 70 }
-    ],
-    icon: "📊"
-  },
-  {
-    category: "NLP",
-    skills: [
-      { name: "Named Entity Recognition", level: 95 },
-      { name: "Text Classification", level: 90 },
-      { name: "Event Extraction", level: 85 },
-      { name: "Generative AI", level: 90 },
-      { name: "RAG", level: 85 }
-    ],
-    icon: "📝"
-  },
-  {
-    category: "AI",
-    skills: [
-      { name: "PyTorch", level: 90 },
-      { name: "TensorFlow", level: 85 },
-      { name: "Scikit-learn", level: 95 },
-      { name: "HuggingFace", level: 90 },
-      { name: "LangChain", level: 85 }
-    ],
-    icon: "🤖"
-  },
-  {
-    category: "Machine Learning",
-    skills: [
-      { name: "Regression", level: 90 },
-      { name: "Classification", level: 85 },
-      { name: "Clustering", level: 80 },
-      { name: "Dimensionality Reduction", level: 75 },
-      { name: "Model Evaluation", level: 70 }
-    ],
-    icon: "📈"
-  },
-  {
-    category: "Cloud Computing",
-    skills: [
-      { name: "AWS", level: 80 },
-      { name: "Azure", level: 75 },
-      { name: "Google Cloud", level: 70 },
-      { name: "Docker", level: 85 },
-      { name: "Kubernetes", level: 80 }
-    ],
-    icon: "☁️"
-  },
-  {
-    category: "Programming",
-    skills: [
-      { name: "Python", level: 95 },
-      { name: "SQL", level: 85 },
-      { name: "Git", level: 90 },
-      { name: "Flask", level: 80 },
-      { name: "Django", level: 75 }
-    ],
-    icon: "💻"
-  }
+const skills = [
+  { name: "Python", level: 95, image: "skills_icons/Python-logo-notext.svg.png" },
+  { name: "SQL", level: 85, image: "skills_icons/Sql_data_base_with_logo.svg.png" },
+  { name: "NumPy", level: 85, image: "skills_icons/NumPy_logo_2020.svg.png" },
+  { name: "Pandas", level: 90, image: "skills_icons/Pandas_logo.svg.png" },
+  { name: "PyTorch", level: 90, image: "skills_icons/pytorch-2.svg" },
+  { name: "TensorFlow", level: 85, image: "skills_icons/TensorFlow_logo.svg.png" },
+  { name: "LangChain", level: 85, image: "skills_icons/langchain.png" },
+  { name: "Named Entity Recognition", level: 95, image: "skills_icons/NER-Text.png" },
+  { name: "Event Extraction", level: 85, image: "skills_icons/event_extraction.png" },
+  { name: "AWS", level: 80, image: "skills_icons/aws.svg.png" },
+  { name: "Git", level: 90, image: "skills_icons/github.jpg" },
+  { name: "Flask", level: 80, image: "skills_icons/flask.png" }
 ];
 
 const projects = [
@@ -141,25 +86,21 @@ const projects = [
   }
 ];
 
-function createSkillCard(category) {
+function createSkillCard(skill) {
   return `
     <div class="skill-card p-6 rounded-xl transition-all bg-white hover:bg-primary/5">
       <div class="flex items-center gap-3 mb-4">
-        <span class="text-3xl">${category.icon}</span>
-        <h3 class="text-xl font-bold">${category.category}</h3>
+        <img src="${skill.image}" alt="${skill.name}" class="w-12 h-12 object-contain">
+        <h3 class="text-xl font-bold">${skill.name}</h3>
       </div>
-      <div class="skill-card-content space-y-4">
-        ${category.skills.map(skill => `
-          <div class="space-y-2">
-            <div class="flex justify-between text-sm">
-              <span>${skill.name}</span>
-              <span>${skill.level}%</span>
-            </div>
-            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div class="h-full bg-primary" style="width: ${skill.level}%"></div>
-            </div>
-          </div>
-        `).join('')}
+      <div class="space-y-2">
+        <div class="flex justify-between text-sm">
+          <span>${skill.name}</span>
+          <span>${skill.level}%</span>
+        </div>
+        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div class="h-full bg-primary" style="width: ${skill.level}%"></div>
+        </div>
       </div>
     </div>
   `;
@@ -204,18 +145,7 @@ function createExperienceCard(exp) {
 
 // Populate sections
 document.addEventListener('DOMContentLoaded', () => {
-  // Populate skills
-  const skillsGrid = document.getElementById('skills-grid');
-  skillCategories.forEach(category => {
-    skillsGrid.innerHTML += createSkillCard(category);
-  });
-
-  // Add event listeners to skill cards
-  document.querySelectorAll('.skill-card').forEach(card => {
-    card.addEventListener('click', () => {
-      card.classList.toggle('open');
-    });
-  });
+  // Remove skills population
 
   // Populate projects
   const projectsGrid = document.getElementById('projects-grid');
@@ -234,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <li><a href="#skills" class="text-black">Skills</a></li>
       <li><a href="#projects" class="text-black">Projects</a></li>
       <li><a href="about.html" class="text-black">About</a></li>
+      <li><a href="Yerkezhan_Abdullayeva_CV.pdf" class="text-black">My CV</a></li>
     </ul>
   `;
 
@@ -272,8 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portfolio_photo-errqhuAcOp8zYAuerKSeX2Yd4baQdd.png" alt="Yerkezhan Abdullayeva" class="w-full h-full object-cover">
       </div>
     </div>
-    <div class="text-left mt-8">
-        <a href="#projects" class="inline-block px-4 py-2 rounded transition-colors bg-gray-300 text-primary-foreground shadow-md hover:bg-gray-400">My Projects</a>
+    <div class="text-right mt-8"> <!-- Align to the right -->
+        <a href="#projects" class="inline-block px-4 py-2 rounded transition-colors bg-gray-800 text-white shadow-md hover:bg-gray-900">My Projects</a>
     </div>
   `;
 });

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +8,108 @@
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body class="bg-background text-foreground">
+    <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
+        <ul class="flex space-x-4 justify-end">
+            <li><a href="https://github.com/yerkesoul/Sentiment-Analysis-on-Twitter-data" class="text-black">Code on Github</a></li>
+            <li><a href="../index.html" class="text-black">Back to Portfolio</a></li>
+        </ul>
+    </nav>
     <div class="container py-10">
         <h1 class="text-4xl font-bold mb-6">Sentiment Analysis on Twitter Data</h1>
         <p class="text-secondary mb-4">Date: 2022</p>
-        <p class="mb-4">Analyzing Sentiment in Twitter Posts</p>
+        <p class="mb-4"> </p>
         <ul class="list-disc ml-6 space-y-3">
-            <li>Developed a sentiment analysis model for Twitter data.</li>
-<li>Utilized the Twitter API to collect large volumes of tweets.</li>
-<li>Conducted time series analysis to track sentiment trends over time.</li>
+           
         </ul>
+        <div class="prose max-w-none">
+            <h2 class="font-bold mb-4">Sentiment Analysis Documentation</h2>
+            <h3 class="font-bold mb-4">Overview</h3>
+            <p>This Jupyter Notebook provides a comprehensive workflow for conducting Sentiment Analysis using Natural Language Processing (NLP) techniques. It covers data preprocessing, exploratory data analysis (EDA), feature extraction, model training, and evaluation.</p>
+            <h3 class="font-bold mb-4">Contents</h3>
+            <ol class="list-decimal list-inside space-y-2">
+                <li><strong>Introduction</strong>
+                    <p>The notebook starts with an introduction to sentiment analysis, outlining its importance in understanding textual data and its applications in various domains, such as customer feedback analysis, social media monitoring, and market research.</p>
+                </li>
+                <li><strong>Dependencies and Libraries</strong>
+                    <p>The following Python libraries are required:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>pandas: For data manipulation and analysis.</li>
+                        <li>numpy: For numerical computations.</li>
+                        <li>matplotlib and seaborn: For data visualization.</li>
+                        <li>scikit-learn: For machine learning model building and evaluation.</li>
+                        <li>nltk or spaCy: For text preprocessing (e.g., tokenization, stopword removal).</li>
+                        <li>textblob or vaderSentiment: For sentiment scoring (optional).</li>
+                    </ul>
+                    <p>Ensure these libraries are installed before running the notebook.</p>
+                </li>
+                <li><strong>Data Loading</strong>
+                    <p>The notebook loads a dataset containing text samples and their corresponding sentiment labels (e.g., positive, negative, neutral). The data is typically read from a CSV or similar structured file format.</p>
+                </li>
+                <li><strong>Data Preprocessing</strong>
+                    <p>Key steps include:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Text cleaning: Removing special characters, numbers, and HTML tags.</li>
+                        <li>Tokenization: Splitting text into individual words or tokens.</li>
+                        <li>Lowercasing: Converting all text to lowercase to ensure uniformity.</li>
+                        <li>Stopword removal: Excluding common words that do not contribute to sentiment (e.g., "and", "the").</li>
+                        <li>Stemming/Lemmatization: Reducing words to their base or root forms.</li>
+                    </ul>
+                </li>
+                <li><strong>Exploratory Data Analysis (EDA)</strong>
+                    <p>The notebook visualizes the dataset to understand:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>The distribution of sentiment classes.</li>
+                        <li>Common words and phrases in each sentiment category.</li>
+                        <li>Word cloud visualizations to highlight frequently occurring terms.</li>
+                    </ul>
+                </li>
+                <li><strong>Feature Extraction</strong>
+                    <p>The text data is converted into numerical representations using techniques such as:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Bag-of-Words (BoW)</li>
+                        <li>TF-IDF (Term Frequency-Inverse Document Frequency)</li>
+                        <li>Word Embeddings (e.g., Word2Vec, GloVe)</li>
+                    </ul>
+                </li>
+                <li><strong>Model Training</strong>
+                    <p>Various machine learning algorithms are employed to classify sentiment, including:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Logistic Regression</li>
+                        <li>Support Vector Machines (SVM)</li>
+                        <li>Naïve Bayes</li>
+                        <li>Random Forests or Gradient Boosting (e.g., XGBoost, LightGBM)</li>
+                    </ul>
+                </li>
+                <li><strong>Model Evaluation</strong>
+                    <p>Performance metrics include:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Accuracy: Percentage of correctly classified instances.</li>
+                        <li>Precision, Recall, F1-score: For evaluating performance in imbalanced datasets.</li>
+                        <li>Confusion Matrix: To visualize classification errors.</li>
+                    </ul>
+                </li>
+                <li><strong>Advanced Techniques (Optional)</strong>
+                    <p>Deep Learning Models: Utilizing architectures like LSTMs, GRUs, or Transformers (e.g., BERT).</p>
+                    <p>Hyperparameter Tuning: Using techniques such as Grid Search or Random Search for model optimization.</p>
+                </li>
+                <li><strong>Conclusion</strong>
+                    <p>Summarizes the findings and highlights potential areas for improvement or further exploration.</p>
+                </li>
+                <li><strong>References</strong>
+                    <p>Links to datasets, research papers, or additional reading materials are included.</p>
+                </li>
+            </ol>
+            <h3 class="font-bold mb-4">Usage Instructions</h3>
+            <p>Open the notebook in Jupyter Notebook or JupyterLab.</p>
+            <p>Follow the steps sequentially, ensuring all code cells are executed in order.</p>
+            <p>Replace the dataset path and adjust preprocessing or model parameters as necessary for custom datasets.</p>
+            <h3 class="font-bold mb-4">Notes</h3>
+            <ul class="list-disc list-inside space-y-2">
+                <li>Ensure the dataset is balanced or use resampling techniques if required.</li>
+                <li>Experiment with different feature extraction and model combinations for optimal performance.</li>
+                <li>Document observations and results at each stage for reproducibility.</li>
+            </ul>
+        </div>
         <a href="../index.html" class="block mt-6 text-primary hover:underline">← Back to Portfolio</a>
     </div>
 </body>

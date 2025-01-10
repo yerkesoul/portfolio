@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +8,96 @@
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body class="bg-background text-foreground">
-    <div class="container py-10">
-        <h1 class="text-4xl font-bold mb-6">Master Thesis in Generative AI</h1>
-        <p class="text-secondary mb-4">Date: 2024</p>
-        <p class="mb-4">Assessment of Map Navigation and Spatial Reasoning Abilities of Large Language Models</p>
-        <ul class="list-disc ml-6 space-y-3">
-            <li>Developed five Python-based map traversal games to assess the spatial reasoning capabilities of LLMs.</li>
-<li>Tested 15 large language models (GPT-4, Llama-3, Claude-3) through API calls and conducted quantitative and qualitative analysis.</li>
-<li>Results were published as part of a conference paper.</li>
-<li>Created a comprehensive evaluation framework for assessing LLM performance in spatial tasks.</li>
+    <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
+        <ul class="flex space-x-4 justify-end">
+            <li><a href="https://github.com/yerkesoul/clembench" class="text-black">Code on Github</a></li>
+            <li><a href="https://arxiv.org/abs/2406.14035" class="text-white bg-red-600 px-4 py-2 rounded">View the publication</a></li>
+            <li><a href="../index.html" class="text-black">Back to Portfolio</a></li>
         </ul>
+    </nav>
+    <div class="container py-10 mt-20">
+        <h1 class="text-4xl font-bold mb-6">Does LLMs' map traversal process primarily rely on memorization or on actual spatial reasoning abilities?</h1>
+        <p class="text-secondary mb-4">Date: 2024</p>
+        <p class="text-red-600 font-bold mb-4">Spoiler: No, LLMs do not have an out-of-the-box emergent cognitive map comprehension or planning competence</p>
+        <p class="mb-4">I completed this master thesis project in the research group of <a href="https://clp.ling.uni-potsdam.de/bibliography/Beyer-2024/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Prof. Dr. David Schlangen</a> and under supervision of <a href="https://sherzod-hakimov.github.io/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Dr. Sherzod Hakimov</a>. The topic is: Assessment of Map Navigation and Spatial Reasoning Abilities of Large Language Models</p>
+        
+        <div class="flex justify-center mt-6 mb-4">
+            <img src="../diagrams/thesis/environment.png" alt="Environment of Mapnavigation game" class="w-1/3 h-auto">
+        </div>
+        <div class="text-center text-sm text-gray-600 mt-2">Environment of Mapnavigation game. The player (denoted with P) is currently in the Nursery and has the option to move to one of the neighboring rooms (Bar, Closet or Bedroom).
+        </div>
+        
+        <div class="mb-4">
+            In my master’s thesis project, I explored the spatial reasoning and map traversal capabilities of large language models through an interactive, dialogue-driven Mapnavigation game. I have applied <a href="https://clp.ling.uni-potsdam.de/publications/Chalamalasetti-2023.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Chat-optimized LLMs</a> for the evaluation as they offer interactive and dynamic assessment methods.
+        </div>
+        
+        <p class="mb-4">
+            <strong>Key findings:</strong><br>
+            - Commercial models are way ahead of open-weight models.<br>
+            - Even commercial models struggle with fine-grained tasks.<br>
+            - Map navigation is a challenging task where open-weight models mostly get stuck in loops.
+        </p>
+        
+        <p class="mb-4">
+            I am proud to note that my master thesis project that was included in the paper "<a href="https://arxiv.org/abs/2406.14035" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Using Game Play to Investigate Multimodal and Conversational Grounding in Large Multimodal Models</a>" has been accepted at <a href="https://coling2025.org/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">COLING 2025</a>.
+        </p>
+
+        <p class="mb-4">
+            I have developed a Mapnavigation game that evaluates large language models’ ability to navigate and reason spatially in a dialogue format. The game has 5 versions to evaluate the specific skills of large language models:
+        </p>
+        
+        <ul class="list-disc ml-6 space-y-3">
+            <li><strong>Go to X version:</strong> Evaluated the ability of models to follow in-game instructions in a map-based environment.</li>
+            <li><strong>Explore Exhaustively version:</strong> Investigated the ability of the model to explore all the available rooms efficiently.</li>
+            <li><strong>Image Description version:</strong> Examined the implications of showing the room as an image description rather than a label.</li>
+            <li><strong>Graph Reasoning version:</strong> Investigated the effect of a chain of thought prompting.</li>
+            <li><strong>Question Answering version:</strong> Assessed the model’s ability to respond to queries concerning the map it has traversed.</li>
+        </ul>
+        
+        <p class="mt-6">Here are the gameplay of Explore Exhaustively and Graph Reasoning games:</p>
+        
+        <div class="flex space-x-4 mt-6">
+            <div class="w-1/2">
+                <img src="../diagrams/thesis/EE_gameplay.gif" alt="EE Gameplay" class="w-full h-auto">
+                <p class="text-sm text-gray-600 mt-2"> <strong>Figure 2:</strong> Successful gameplay of the Explore Exhaustively (EE) version. The player starts in the Utility room 
+                    and takes 8 steps to explore all rooms. Dark blue rooms indicate visited locations, light blue are unvisited, 
+                    and the green room marks the player’s current position.
+            </div>
+            <div class="w-1/2">
+                <img src="../diagrams/thesis/gr_gameplay.gif" alt="GR Gameplay" class="w-full h-auto">
+                <p class="text-sm text-gray-600 mt-2">  <strong>Figure 3:</strong> Gameplay from the Graph Reasoning (GR) version. Steps include answers, graph representations, 
+                    and similarity metrics. Light grey rooms remain unvisited, dark blue rooms are visited, and the green room 
+                    indicates the current player position.
+            </div>
+        </div>
+
+        <p class="mb-4">
+            <strong>Evaluated models:</strong> Claude-3, GPT-4o, GPT-4v-1106, Gemini-1.5, Llama-3-70B, Llama-3-8B, Idefics-80B, Idefics-9B, Openchat-3.5, Mixtral-8x22B, Mixtral-8x7B, Mistral-7B, LLaVA-1.5-13B, LLaVA-v1.6-13B, and LLaVA-v1.6-34B.
+        </p>
+
+        <div class="flex space-x-4 mt-6">
+            <div class="w-1/2">
+                <img src="../diagrams/thesis/thesis_dialogue.png" alt="Thesis Dialogue" class="w-full h-auto">
+            </div>
+            <div class="w-1/2">
+                <img src="../diagrams/thesis/prompt_example.png" alt="Prompt Example" class="w-full h-auto">
+            </div>
+        </div>
+        
+        <h2 class="text-3xl font-bold mt-10 mb-6">Results</h2>
+        <p class="mb-4">
+            Analyzing the outcomes of five game versions of the Mapnavigation game, we state the following research outcomes:
+        </p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>Chat-optimized LLMs (cLLMs) provide an interactive and dynamic way to assess spatial reasoning and map traversal skills.</li>
+            <li>LLMs’ performance in map traversal may rely on memorization rather than true spatial reasoning abilities, particularly in more ambiguous scenarios.</li>
+            <li>The density and structure of graphs significantly affect traversal efficiency and accuracy, with smaller and simpler graphs yielding better performance.</li>
+            <li>There is a notable performance disparity between open-source and proprietary LLMs, with proprietary models generally outperforming open-source ones in map navigation tasks.</li>
+        </ul>
+        <p class="mt-6">
+            You also can find me in the list of the official contributors as one of the game developers of the Clembench Framework (<a href="https://clembench.github.io/contributors.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://clembench.github.io/contributors.html</a>).
+        </p>
+        
         <a href="../index.html" class="block mt-6 text-primary hover:underline">← Back to Portfolio</a>
     </div>
 </body>

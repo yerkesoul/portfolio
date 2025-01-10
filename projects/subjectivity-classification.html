@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +8,494 @@
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body class="bg-background text-foreground">
-    <div class="container py-10">
-        <h1 class="text-4xl font-bold mb-6">Subjectivity Classification</h1>
-        <p class="text-secondary mb-4">Date: 2022</p>
-        <p class="mb-4">Classifying Text as Subjective or Objective</p>
-        <ul class="list-disc ml-6 space-y-3">
-            <li>Developed a machine learning model to classify text as subjective or objective.</li>
-<li>Utilized various NLP techniques including word embeddings and deep learning models.</li>
-<li>Achieved high accuracy in distinguishing between subjective and objective statements.</li>
+    <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
+        <ul class="flex space-x-4 justify-end">
+            <li><a href="https://github.com/yerkesoul/Subjectivity-Classification" class="text-black">Code on Github</a></li>
+            <li><a href="../index.html" class="text-black">Back to Portfolio</a></li>
         </ul>
+    </nav>
+    <div class="container py-10 mt-20">
+        <h1 class="text-4xl font-bold mb-6">Subjectivity Classification</h1>
+        <div class="prose max-w-none">
+            <h2 class="font-bold mb-4">Abstract</h2>
+            <p>The report describes the replication and further extension of argumentation features model. The main goal is to investigate the importance of article content representation with argumentation features in distinguishing between news and opinion articles. The results of the original model and replication differ as two models were not trained on the same model. However, argumentation features were improving the result of the model almost always. Moreover, the frequency analysis of argumentation features confirms the relation between argumentative types of sentences and the discourse structure of the articles.</p>
+            <figure class="my-4">
+                <img src="../diagrams/subjectivity/baseline.png" alt="The architecture of Baseline model" class="w-1/2 h-auto">
+                <figcaption>The architecture of Baseline model</figcaption>
+            </figure>
+            <figure class="my-4">
+                <img src="../diagrams/subjectivity/all.png" alt="The architecture of All models combined" class="w-1/2 h-auto">
+                <figcaption>The architecture of All models combined</figcaption>
+            </figure>
+            <h2 class="font-bold mb-4">Introduction</h2>
+            <p>Replication and extension of Argumentation Features model <a href="#alhindi-etal-2020-fact">(Alhindi et al., 2020)</a> was a part of the project module "Mining opinions and arguments". The model provided a method for categorizing articles into news and opinion articles using models that enrich the article content representation with argumentation elements. Among several other models which were employed for binary classification task, the ensemble model combining a Recurrent neural network and Bert embeddings was selected to replicate and this ensemble model will be further referred to as a baseline model. The primary assumption of the baseline model was that structure of the argumentative discourse is significant in differentiating between news and opinion articles compared to linguistics features.</p>
+            <p>The articles can be divided into two groups: news articles and opinion articles. News articles are supposed to be objective and neutral and an intend to present readers with accurate data. Controversially, opinion articles include personal opinions or points of view of that article's author on a certain topic or problem. Readers could mistake views for facts and believe that a certain point of view is neutral and unbiased if they are unable to discern between opinion and news pieces. Consequently that impair public comprehension and decision-making by causing confusion and spreading false and most importantly non-factual information. Thus it's important to understand the difference between news and opinion items and be able to recognize them.</p>
+            <p>A survey on labeling systems of 49 news publications were conducted: 25 local newspapers and 24 national news and opinion websites<a href="#survey">(Survey)</a>. Unfortunately, most media organizations ignore their obligation of labeling their information. Just 20 of the 49 examined publishers that took part in the survey, to be precise only 41%, labeled an article type at least once, at least one of their websites.</p>
+            <p>The baseline proves that document-level categorization of news articles and opinion articles, benefits from argumentation characteristics at the sentence level that are produced from predictive models. Baseline employs the corpus of editorial news that has been labeled with the argumentation methods developed by <a href="#al-khatib-etal-2016-cross">(Al-Khatib et al., 2016)</a> to train sentence-level argument component classification model to identify whether the sentence is a claim, premises, or none.</p>
+            <p>Major motive of baseline replication is to guarantee that the model and the conclusions stated in the original study are applicable even if the training data is different. Moreover, the model was further extended and new features were added.</p>
+            <h2 class="font-bold mb-4">Data</h2>
+            <p>The baseline model and replication of the baseline model did not have the same input datasets. The reason is that there was no legal access to certain datasets used in the baseline model. Additionally, even the dataset which was available was altered moderately to further implement for the replication.</p>
+            <h3 class="font-bold mb-4">Data collection of Baseline model</h3>
+            <p>Originally, the baseline model had two data collections. In the first data collection, there were: Wall Street Journal (WSJ), New York Times Defense topic, and New York Times Medicine topic data sets and the second data collection contained Multi-Publisher data set and additionally Canada (The Metro-Winnipeg) data set. Table 1 shows information on the proportions, publishers, and data set divisions in both collections of the baseline. Multi-Publisher data set contained 10 publishers of the United States: New York Times, Washington Post, Washington Observer Report, Digital Journal, Enid News, Californian, Press Democrat, NW Florida Daily, Gazette-Mail and NJ Spotlight.</p>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th>Data Collection</th>
+                        <th>Type</th>
+                        <th>Publisher</th>
+                        <th>News</th>
+                        <th>Opinion</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="4">WSJ-NYT</td>
+                        <td>train</td>
+                        <td>WSJ</td>
+                        <td>1751</td>
+                        <td>1751</td>
+                        <td>3502</td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
+                        <td>WSJ</td>
+                        <td>500</td>
+                        <td>500</td>
+                        <td>1000</td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
+                        <td>NYT-Defense</td>
+                        <td>1000</td>
+                        <td>1000</td>
+                        <td>2000</td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
+                        <td>NYT-Medicine</td>
+                        <td>1000</td>
+                        <td>1000</td>
+                        <td>2000</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">Multi-Publisher</td>
+                        <td>train</td>
+                        <td>10 publishers</td>
+                        <td>3193</td>
+                        <td>3193</td>
+                        <td>6386</td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
+                        <td>10 publishers</td>
+                        <td>353</td>
+                        <td>353</td>
+                        <td>706</td>
+                    </tr>
+                    <tr>
+                        <td>test</td>
+                        <td>The Metro - Winnipeg</td>
+                        <td>418</td>
+                        <td>418</td>
+                        <td>836</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="font-bold mb-4">Replication dataset</h3>
+            <p>The New York Times Annotated Corpus<a href="#NYT">(NYT)</a> was the only data collection that was applied for replication and extension of the baseline model. The corpus contains almost every New York Times article released between January 1, 1987 and June 19, 2007. Generally, the New York Times Annotated Corpus includes 1,855,658 articles throughout more than two decades.</p>
+            <p>Although the publisher of the articles is the same as in was for the baseline model, some differences between sets should be taken into consideration:</p>
+            <ol>
+                <li>Topics: The topics of the NYT dataset applied in the baseline were Defence and Medicine, on the contrary, for reproduction topics like Politics, Finances, Law, Medicine, Military and Education were employed. The details of The New York Times Annotated Corpus separated these six different publishers are described in the Table 2.</li>
+                <li>Training and Testing sets: Consequently, the changes in the topics lead to the fact that the model will be trained on different sets and could be a reason for to difference in the result. The authors of the baseline trained of WSJ data set and tested on NYT data set on purpose to investigate the impact of subject switching. However, the model replication was trained on NYT-Politics topic and tested on NYT-Finances, NYT-Law, NYT-Medicine, NYT-Military and NYT-Education.</li>
+            </ol>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th>Publisher</th>
+                        <th>Type</th>
+                        <th>Opinion</th>
+                        <th>News</th>
+                        <th>Total</th>
+                        <th>Filtered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>NYT- Politics</td>
+                        <td>Train</td>
+                        <td>1520</td>
+                        <td>5366</td>
+                        <td>6886</td>
+                        <td>6826</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Finances</td>
+                        <td>Test</td>
+                        <td>540</td>
+                        <td>2560</td>
+                        <td>3100</td>
+                        <td>3061</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Law</td>
+                        <td>Test</td>
+                        <td>931</td>
+                        <td>2622</td>
+                        <td>3553</td>
+                        <td>3520</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Medicine</td>
+                        <td>Test</td>
+                        <td>451</td>
+                        <td>1292</td>
+                        <td>1743</td>
+                        <td>1699</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Military</td>
+                        <td>Test</td>
+                        <td>432</td>
+                        <td>1700</td>
+                        <td>2132</td>
+                        <td>2113</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Education</td>
+                        <td>Test</td>
+                        <td>504</td>
+                        <td>1377</td>
+                        <td>1881</td>
+                        <td>1833</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="font-bold mb-4">Analysis of argumentation features</h2>
+            <p>In this section, the relationship between argumentative sentence types and the discourse structure of the articles will be assumed by analysis of the occurrence of claims and premises at each sentence location. Figure 3 represents sentence position analysis of training set in 3 combinations: including the whole set, only opinion articles and only news articles. However, it is worth to note that the argumentation classes are not manually checked and only the result of an argumentation classification model. Sections e and f of the Figure 3, which depict frequency of claims and premises at each sentence position in solely news and opinion articles, show how claims and premises oppositely distributed in editorials compared to factual news articles. In the set containing solely opinion articles 80% or articles start with a claim, meanwhile in news articles set this percentages decreases twice becoming only 40%. The same trend is observed for the premise argumentation class as only around 30% of the opinion articles and premise class the percentage rises twice in the set of news articles. Additionally, when comparing two data sets with 3 labels and 6 labels it is vivid that combining 4 argumentation classes into one class of premise is creating an imbalanced data set and generalizing argumentation units. This can be seen from the sections a and b of the Figure 3, when comparing 2 cases of the whole data set with 3 labels and 6 labels.</p>
+            <figure class="my-4">
+                <img src="../diagrams/subjectivity/diagrams.png" alt="Sentence position analysis of training set (NYT- Politics) including the whole dataset, only opinion articles and only news articles. Also divided into sets with 3 labels and 6 labels." class="w-1/2 h-auto">
+                <figcaption>Sentence position analysis of training set (NYT- Politics) including the whole dataset, only opinion articles and only news articles. Also divided into sets with 3 labels and 6 labels.</figcaption>
+            </figure>
+            <p>Figure 4 demonstrates predicted argumentation class distribution of the training set (NYT- Politics) with 3 labels and 6 labels. Assumption class, which is the only argumentation class that represents opinion articles, makes up around one third of the whole training set, to be precise in 3 labels set 39% and in 6 labels set 35%. However, generalization could be a reason of 4% increase of opinion articles in the set with 3 labels. Anecdote and testimony classes make up the majority of news articles, each one contributing 27% and 34% respectfully. It is apparent that the percentage of the non-argumentative class "Others" was 0.6% in both sets. Therefore, both models identify sentences without argumentative discourse unit with a high accuracy.</p>
+            <figure class="my-4">
+                <img src="../diagrams/subjectivity/piecharts.png" alt="Argumentation class distribution of the training set (NYT- Politics) with 3 labels and 6 labels." class="w-1/2 h-auto">
+                <figcaption>Argumentation class distribution of the training set (NYT- Politics) with 3 labels and 6 labels.</figcaption>
+            </figure>
+            
+            <h3 class="font-bold mb-4">Dataset extraction</h3>
+            <p>To obtain datasets for the replication model 3 annual datasets of 1986, 1996, 2005 years were obtained. Data was unorganized and later was filtered for the purpose of identifying whether the article contains an opinion or not.</p>
+            <p>Firstly, three years of annual data were collected and further filtered by data fields such as Descriptors, General Online Descriptors, News Desk, Online Section, Types Of Material, and Word Count. It is noteworthy to mention that data collection was very unbalanced and moreover, sometimes the required fields were empty or lacked crucial points. Subsequently, fewer articles were applicable and the number of befitting articles decreased a lot.</p>
+            <p>Secondly, subgroups of data fields were investigated and explored. For example, even in the filtered dataset, only the Descriptors data field had 7405 subgroups. The goal was to correctly combine subgroups and data fields. The details of subset concatenation are explicitly shown in the Table 3.</p>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Subsets</th>
+                        <th>Opinion article %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>NYT- Politics</td>
+                        <td>Politics, Relation, International, Regional</td>
+                        <td>22.07</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Finances</td>
+                        <td>Finances, Business</td>
+                        <td>17.4</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Law</td>
+                        <td>Law, Right, Court</td>
+                        <td>26.2</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Medicine</td>
+                        <td>Medicine, Health, Disease</td>
+                        <td>25.8</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Military</td>
+                        <td>Defense, Armament, Military</td>
+                        <td>20.26</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Education</td>
+                        <td>Education, School, Teacher</td>
+                        <td>26.7</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The opinion articles selection was heavily influenced by the "Types Of Material" data field and data classes such as "letter" and 'op-ed' were considered opinion articles. Overall, opinion articles are not that common naturally and one of the steps was to balance the news and opinion articles. In the end, the percentage of opinion articles averagely a quarter of the whole data collection. Additionally, the details of opinion percentages of the 6 topics are described in the Table 3.</p>
+            <h2 class="font-bold mb-4">Baseline replication</h2>
+            <p>The baseline intended to prove that the structure of the argumentative discourse is significant in differentiating between news and opinion articles. Moreover, another goal was to demonstrate that argumentation features transfer effectively to publications from unknown sources or genres, emphasizing their applicability.</p>
+            <h3 class="font-bold mb-4">Argumentation Features</h3>
+            <p>Argumentative discourse unit is the minimum text span that completely covers one or more propositions<a href="#al-khatib-etal-2016-cross">(Al-Khatib et al., 2016)</a>. It should always contain a subject and a verb, and if technically needed, it must also include an object. Moreover, it is limited to one sentence. Generally, argumentative discourse units are needed to create convincing, coherent arguments.</p>
+            <p>Since there are no details about argumentative discourse unit segmentation in NYT data collection, a BERT classification model with 3 epochs was trained to perform a three-way sentence classification into claim, premise, or other. The prior research <a href="#al-khatib-etal-2016-cross">(Al-Khatib et al., 2016)</a> presented a corpus of 300 news editorials that were manually annotated according to the approach and editorials were evenly selected from three different online news portals: Al Jazeera, Fox News, and The Guardian. This corpus was used to implement the BERT classification model. Out of this corpus training set of about 6,300 sentences and a test set of approximately 2,100 sentences were collected. These are six categories that cover the fundamental characteristics of argumentation methods in news editorials:</p>
+            <ol>
+                <li>Assumption is the only unit that expresses opinion. Overall, the unit expresses the author's presumption, interpretation, judgment, or viewpoint, as well as a general observation, maybe incorrect fact.</li>
+                <li>Common Ground is the unit that expresses factual information, a self-evident fact, acknowledged truth.</li>
+                <li>Testimony is the unit that derives evidence from a citation of a person or an organization.</li>
+                <li>Statistics is the unit that provides evidence by declaring or citing the findings or conclusions of research, investigations, data analysis.</li>
+                <li>Anecdote is the unit that states a personal experience of the author.</li>
+                <li>Other is the unit that does not correlate with argumentation features.</li>
+            </ol>
+            <p>As certain classes are uncommon and they had fewer sentences, six argumentation forms were divided into three coarser categories: claim, premise, and other. The premise category was made by combining Common-Ground, Witness, Statistics, and Anecdote classes, therefore the Assumption was left to form the Claim category. Claims are more common in the opinion articles, but the news narrative has more premises to support a small number of claims. This can be seen in the Figure below, as it illustrates two coarse-grained sorts of argumentation elements in a news article and an opinion article.</p>
+            <figure class="my-4">
+                <img src="../diagrams/subjectivity/clpr.png" alt="Sentences Tagged as Claims or Premises in a News story and Opinion Articles" class="w-1/2 h-auto">
+                <figcaption>Sentences Tagged as Claims or Premises in a News story and Opinion Articles</figcaption>
+            </figure>
+            <p>Hyperparameters of:</p>
+            <ul>
+                <li>151 maximum sequence length</li>
+                <li>15 training batch size</li>
+                <li>Learning rate of 2e-5.</li>
+            </ul>
+            <p>As an additional experiment, instead of combining labels into 3, it was decided to test with all 6 labels. However, there is a difference between two models: baseline argumentation model reached 0.76 Macro F1 score and replication argumentation model could achieve only 0.55 Macro F1 score.</p>
+            <h3 class="font-bold mb-4">Document-level Contextualized Embeddings</h3>
+            <p>BERT (Bidirectional Encoder Representations from Transformers) is a pre-trained deep learning model developed by Google <a href="#devlin-etal-2019-bert">(Devlin et al., 2019)</a>. An embedding, also known as an embedding vector or embedding matrix, is a method of encoding a categorical or discrete input characteristic as a continuous vector of real numbers in the context of neural networks.</p>
+            <p>The top layer of the [CLS] token is used to represent the article both in the baseline and reproduction models. [CLS] token stands for classification and occurs at the start of every sentence, has a fixed embedding and a fixed positional embedding, and therefore has no information. Yet, because all other words in this phrase infer the result of [CLS] token, it contains all information in other words. This makes the token a good representation for sentence-level classification and further document-level classification. Previously, the authors of the baseline experimented with representing the [CLS] with each of the top four layers, as well as the sum and average of all four levels. Hence the top layer had the best outcomes with a little advantage over the other layers, it was decided to use the top layer as representation.</p>
+            <p>To produce a contextualized representation of the article, the authors of the baseline fine-tune the "bert-base-cased" model.</p>
+            <h3 class="font-bold mb-4">Models</h3>
+            <ol>
+                <li>RNN
+                    <p>(Recurrent Neural Networks)<a href="#Hopfield:1982pe">(Hopfield, 1982)</a> are a kind of neural network that is used to process sequential input. The major superiority of RNN in over other Neural networks is the capacity of RNN to capture sequential dependencies and develop representations that integrate contextual information from earlier inputs. To be precise, RNN can remember past inputs, allowing them to capture long-term relationships and contextual information crucial for sequence classification tasks.</p>
+                    <p>The argumentative labels of sentences as a series are fed into a 128-layer RNN, layer the output of that layer is sent to a Softmax dense layer for prediction. Articles containing more than 100 sentences are not included, which covers more than 95% of the whole data collection. Therefore, those who have less than 100 sentences padded to reach the maximum length.</p>
+                    <p>The model's architecture is the same.</p>
+                </li>
+                <li>BERT classification model
+                    <p>Based on the [CLS] token that represents each article, the BERT model predicts whether the article is a news or opinion article. The model has the input size of 768, a batch size of 16 and train for 3 epochs.</p>
+                </li>
+                <li>RNN+BERT
+                    <p>The ensemble model has 2 input features: The first input is fine-tuned BERT embedding per each article of the size 768, which is later fed to a dense layer of size 128 with 50% dropout. The second input is argumentative labels of sentences as a series with a maximum length of 100 sentences, which is later fed into a 128-layer RNN. Later a dense layer with dropout after the BERT embeddings is introduced, before concatenation, the layer sizes of the BERT and RNN outputs are equivalent.</p>
+                </li>
+            </ol>
+            <h3 class="font-bold mb-4">Results</h3>
+            <p>Table 2 shows the average F1 score for the baseline reproduction classification model of articles into News or Opinion. The most noticeable difference in the baseline and reproduction results is that the baseline model showed great results on the test set of the data collection on which the model was trained but the F1 score dropped 20% when testing on an unseen publisher, meanwhile the reproduction model did not show a big difference between seen and unseen publisher. To be precise, the reproduction model (BERT+RNN) was trained on NYT-Politics set and reached 0.90 F1 score and the test sets such as NYT-Education, NYT-Finances, NYT-Law, NYT-Law, NYT-Military obtained F1 score of 0.87, 0.90, 0.85, 0.88, 0.90 respectfully.</p>
+            <p>Overall, there was no significant difference between the results of the ensemble model of RNN and Bert with 3 labels and 6 labels. In fact, the results were almost identical, except 1% difference of the NYT-Education, NYT-Medicine, NYT-Military sets.</p>
+            <h2 class="font-bold mb-4">Extension of the baseline model</h2>
+            <p>The goal of extending the model was to enrich the model with additional features as sentiment and part of speech in order to make better predictions. Figure 2 depicts the architecture of the ensemble model combining an RNN, Bert Embeddings, Stanford Part of Speech tagger and Vader model for sentiment analysis.</p>
+            <h3 class="font-bold mb-4">Extension models. Changes in the architecture</h3>
+            <h4 class="font-bold mb-4">Sentiment analysis: VADER</h4>
+            <p>Sentiment analysis<a href="#sentiment">(Sentiment)</a> may help determine if a document is a news item or an opinion article since opinion articles often convey a strong sentiment or emotion about a particular issue, whereas newspaper articles typically present facts without expressing a strong viewpoint.</p>
+            <p>A model performs an analysis of whether a document has a positive or negative sentiment toward a topic by examining its sentiment, and so categorize the document as an opinion article. The model, on the other hand, can categorize the document as a news story if it contains predominantly unbiased or factual information.</p>
+            <p>VADER (Valence Aware Dictionary and Sentiment Reasoner)<a href="#vader">(VADER)</a> is a rule-based model for sentiment analysis developed by researchers at the Georgia Institute of Technology. For each sentence, the VADER algorithm generates four sentiment scores: positivity, negativity, neutrality, and compound. The compound score is a balanced, averaged composite score that spans from -1 (very negative) to 1, with values near to zero denoting neutral sentiment.</p>
+            <h4 class="font-bold mb-4">POS tagging</h4>
+            <p>For this purpose, Stanford Log-linear Part-Of-Speech Tagger<a href="#toutanova-etal-2003-feature">(Toutanova et al., 2003)</a> was used. It is incorrect to assert that the Stanford Part-of-Speech (POS) Tagger is the "best" POS tagger since POS tagger performance is affected by various factors such as language, domain, and evaluation measure. The Stanford POS Tagger, on the other hand, is a well-known and regarded POS tagging tool in the natural language processing (NLP) field, and it offers numerous benefits over other POS taggers:</p>
+            <ol>
+                <li>Good performance: The Stanford POS Tagger has been demonstrated to obtain high accuracy on a variety of data sets and has been utilized in a number of research papers. For the Penn Treebank dataset<a href="#penn">(Penn)</a>, the most recent version of the tagger software achieves an accuracy of more than 97%.</li>
+                <li>Availability: The Stanford POS Tagger is an open-source tool and is freely available for academic and non-commercial use.</li>
+            </ol>
+            <p>The features of the Part-of-Speech Tagger differed from other models as one label could not represent the whole sentence, because all the words in the sentences had to be grammatically analyzed. Therefore, the input for the Part-of-Speech Tagger of per article became a two-dimensional array consisting of sentences and words. Since it was discovered that only 1.25% of the sentences have more than 100 words in the sentences, the maximum length of the sentence was set to 100 words. The sentences with fewer words were padded to reach the maximum length.</p>
+            <p>In the end, the input of the Part-of-Speech Tagger became a three-dimensional array of the size (number of articles, number of sentences, number of words). The output of the Part-of-Speech Tagger was a two-dimensional array of the size (number of articles, number of sentences) with the labels of the words in the sentences.</p>
+            <h3 class="font-bold mb-4">Results</h3>
+            <p>Table 3 shows the average F1 score for the extended classification model of articles into News or Opinion. The most noticeable difference in the baseline and extended results is that the extended model showed better results on the test set of the data collection on which the model was trained and the F1 score did not drop when testing on an unseen publisher. To be precise, the extended model (BERT+RNN+VADER+POS) was trained on NYT-Politics set and reached 0.92 F1 score and the test sets such as NYT-Education, NYT-Finances, NYT-Law, NYT-Law, NYT-Military obtained F1 score of 0.90, 0.92, 0.88, 0.90, 0.92 respectfully.</p>
+            <p>Overall, there was a significant difference between the results of the ensemble model of RNN and Bert with 3 labels and 6 labels. In fact, the results were almost identical, except 1% difference of the NYT-Education, NYT-Medicine, NYT-Military sets.</p>
+            <h2 class="font-bold mb-4">Conclusion</h2>
+            <p>To summarize, the replication and extension experiments confirmed that there is a relation between argumentative types of sentences and the discourse structure of the articles, although the highest improvement of a model when adding argumentation features was only 4%. Nevertheless, argumentation features were improving the results most of the times. It can be challenging to compare models trained on different sets, however, the F1 score on the test sets rose around 10%. In fact, to check the transferability of the model it should be tested on an unseen publisher data collection.</p>
+            <p>Moreover, the frequency analysis of the argumentation features confirms that correlation between occurrence of claims and premises.</p>
+            <h2 class="font-bold mb-4">Appendix</h2>
+            <h3 class="font-bold mb-4">Challenges and adjustments</h3>
+            <ol>
+                <li>Unfortunately, the original scripts of the baseline did not apply for replication purposes and most of the code had to be written from scratch, which could lead to changes, additionally to the difference in the training sets.</li>
+            </ol>
+            <h3 class="font-bold mb-4">Tables</h3>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th>Models</th>
+                        <th>SVM</th>
+                        <th>SVM Ensemble</th>
+                        <th>BERT</th>
+                        <th>RNN</th>
+                        <th>RNN+BERT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Baseline</td>
+                        <td>0.76</td>
+                        <td>0.78</td>
+                        <td>0.82</td>
+                        <td>0.84</td>
+                        <td>0.86</td>
+                    </tr>
+                    <tr>
+                        <td>Replication</td>
+                        <td>0.74</td>
+                        <td>0.76</td>
+                        <td>0.80</td>
+                        <td>0.82</td>
+                        <td>0.84</td>
+                    </tr>
+                    <tr>
+                        <td>Extension</td>
+                        <td>0.78</td>
+                        <td>0.80</td>
+                        <td>0.84</td>
+                        <td>0.86</td>
+                        <td>0.88</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th>Models</th>
+                        <th>BERT</th>
+                        <th>RNN (3 labels)</th>
+                        <th>RNN (6 labels)</th>
+                        <th>BERT+RNN (3 labels)</th>
+                        <th>BERT+RNN (6 labels)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Features</td>
+                        <td>Emb.</td>
+                        <td>Arg.</td>
+                        <td>Arg.</td>
+                        <td>Emb. + Arg.</td>
+                        <td>Emb. + Arg.</td>
+                    </tr>
+                    <tr>
+                        <td>NYT- Politics</td>
+                        <td>0.89</td>
+                        <td>0.87</td>
+                        <td>0.87</td>
+                        <td>0.90</td>
+                        <td>0.90</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Education</td>
+                        <td>0.86</td>
+                        <td>0.84</td>
+                        <td>0.83</td>
+                        <td>0.87</td>
+                        <td>0.86</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Finances</td>
+                        <td>0.88</td>
+                        <td>0.90</td>
+                        <td>0.90</td>
+                        <td>0.90</td>
+                        <td>0.90</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Law</td>
+                        <td>0.85</td>
+                        <td>0.84</td>
+                        <td>0.84</td>
+                        <td>0.85</td>
+                        <td>0.86</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Medicine</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                        <td>0.84</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Military</td>
+                        <td>0.88</td>
+                        <td>0.88</td>
+                        <td>0.87</td>
+                        <td>0.88</td>
+                        <td>0.88</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr>
+                        <th>Models</th>
+                        <th>VADER</th>
+                        <th>POS</th>
+                        <th>VADER+POS</th>
+                        <th>BERT+RNN+VADER+POS (3 labels)</th>
+                        <th>BERT+RNN+VADER+POS (6 labels)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Features</td>
+                        <td>Sent.</td>
+                        <td>POS</td>
+                        <td>Sent. + POS</td>
+                        <td>Emb. + Arg. + Sent. + POS</td>
+                        <td>Emb. + Arg. + Sent. + POS</td>
+                    </tr>
+                    <tr>
+                        <td>NYT- Politics</td>
+                        <td>0.87</td>
+                        <td>0.87</td>
+                        <td>0.87</td>
+                        <td>0.91</td>
+                        <td>0.91</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Education</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                        <td>0.88</td>
+                        <td>0.88</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Finances</td>
+                        <td>0.90</td>
+                        <td>0.90</td>
+                        <td>0.90</td>
+                        <td>0.91</td>
+                        <td>0.91</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Law</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                        <td>0.87</td>
+                        <td>0.87</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Medicine</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                        <td>0.85</td>
+                        <td>0.86</td>
+                        <td>0.86</td>
+                    </tr>
+                    <tr>
+                        <td>NYT-Military</td>
+                        <td>0.88</td>
+                        <td>0.88</td>
+                        <td>0.88</td>
+                        <td>0.89</td>
+                        <td>0.89</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class="font-bold mb-4">References</h2>
+            <ol class="list-decimal list-inside space-y-2">
+                <li><strong>Arwa A. Al Shamsi, Reem Bayari, and Said Salloum.</strong> 2021. Sentiment analysis in english texts. Advances in Science Technology and Engineering Systems Journal, 5:1683–1689.</li>
+                <li><strong>Khalid Al-Khatib, Henning Wachsmuth, Matthias Hagen, Jonas Köhler, and Benno Stein.</strong> 2016. Cross-domain mining of argumentative text through distant supervision. In Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, pages 1395–1404, San Diego, California. Association for Computational Linguistics.</li>
+                <li><strong>Tariq Alhindi, Smaranda Muresan, and Daniel Preotiuc-Pietro.</strong> 2020. Fact vs. opinion: the role of argumentation features in news classification. In Proceedings of the 28th International Conference on Computational Linguistics, pages 6139–6149, Barcelona, Spain (Online). International Committee on Computational Linguistics.</li>
+                <li><strong>Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.</strong> 2019. BERT: Pre-training of deep bidirectional transformers for language understanding. In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), pages 4171–4186, Minneapolis, Minnesota. Association for Computational Linguistics.</li>
+                <li><strong>Laurie Beth Harris.</strong> 2017. Helping readers tell the difference between news and opinion: 7 good questions with duke reporters’ lab’s rebecca iannucci.</li>
+                <li><strong>J. J. Hopfield.</strong> 1982. Neural networks and physical systems with emergent collective computational abilities. Proc. Nat. Acad. Sci., 79:2554–2558.</li>
+                <li><strong>C.J. Hutto and Eric Gilbert.</strong> 2015. Vader: A parsimonious rule-based model for sentiment analysis of social media text.</li>
+                <li><strong>Deepika Kumawat and Vinesh Jain.</strong> 2015. Pos tagging approaches: A comparison. International Journal of Computer Applications, 118:32–38.</li>
+                <li><strong>Evan Sandhaus.</strong> 2008. The new york times annotated corpus.</li>
+                <li><strong>Ann Taylor, Mitchell Marcus, and Beatrice Santorini.</strong> 2003. The penn treebank: An overview.</li>
+                <li><strong>Kristina Toutanova, Dan Klein, Christopher D. Manning, and Yoram Singer.</strong> 2003. Feature-rich part-of-speech tagging with a cyclic dependency network. In Proceedings of the 2003 Human Language Technology Conference of the North American Chapter of the Association for Computational Linguistics, pages 252–259.</li>
+            </ol>
+        </div>
         <a href="../index.html" class="block mt-6 text-primary hover:underline">← Back to Portfolio</a>
     </div>
 </body>

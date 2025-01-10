@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +8,74 @@
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body class="bg-background text-foreground">
+    <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
+        <ul class="flex space-x-4 justify-end">
+            <li><a href="https://github.com/yerkesoul/SQL-Query-Translator" class="text-black">Code on Github</a></li>
+            <li><a href="../index.html" class="text-black">Back to Portfolio</a></li>
+        </ul>
+    </nav>
     <div class="container py-10">
         <h1 class="text-4xl font-bold mb-6">NLP to SQL Translator</h1>
         <p class="text-secondary mb-4">Date: 2023</p>
-        <p class="mb-4">Translating Natural Language Queries to SQL</p>
+        <p class="mb-4">This application is a web-based platform that enables users to interact with datasets through natural language queries, making data analysis accessible to both technical and non-technical users. It allows users to upload datasets, explore their structure, and gain insights by asking questions in plain language. Leveraging machine learning and natural language processing, the application automatically interprets queries, generates appropriate operations, and presents results in a clear and understandable format. Additionally, it can provide comprehensive summaries of datasets, highlighting key attributes and patterns without requiring manual exploration. By simplifying data interaction, the application empowers users to extract meaningful insights quickly and efficiently.</p>
         <ul class="list-disc ml-6 space-y-3">
-            <li>Developed a system to convert natural language questions into SQL queries.</li>
-<li>Utilized advanced NLP techniques and machine learning models for accurate translation.</li>
-<li>Achieved high accuracy in query translation across various domains.</li>
+        <figure>
+            <img src="../diagrams/SQL/sql_overall.png" alt="Letter" class="w-1/1 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 1: Web app that creates a description of the dataset</figcaption>
+        </figure>
         </ul>
+        <div class="prose max-w-none">
+            <h2 class="font-bold mb-4">Overview of the Data Flow</h2>
+            <ol class="list-decimal list-inside space-y-2">
+                <li><strong>Data Ingestion:</strong>
+                    <p>Users begin by uploading a dataset in a supported format (e.g., CSV or JSON). The system processes the file to extract its structure, including column names, data types, and any relevant metadata.</p>
+                </li>
+                <li><strong>Schema Extraction:</strong>
+                    <p>Once the dataset is uploaded, the application analyzes its schema and stores this information for later use. This schema forms the basis for generating tailored queries and descriptive summaries.</p>
+                </li>
+                <li><strong>Natural Language Input:</strong>
+                    <p>Users can submit natural language queries about the dataset, such as asking for specific insights, aggregations, or filtering conditions. Alternatively, users can request a general description of the dataset.</p>
+                </li>
+                <li><strong>Query Generation and Execution:</strong>
+                    <p>Using a large language model (LLM), the system interprets the user’s query and generates a structured representation, such as an SQL query. The query is executed on the dataset, and the relevant results are returned to the user.</p>
+                </li>
+                <li><strong>Dataset Summarization:</strong>
+                    <p>For descriptive requests, the system uses the dataset schema and metadata to produce a natural language summary. This summary may include information such as column descriptions, data distributions, and key patterns.</p>
+                </li>
+                <li><strong>Result Delivery:</strong>
+                    <p>The output—either the results of the query or the dataset summary—is presented back to the user in a clear and easily understandable format.</p>
+            </ol>
+
+            <figure>
+                <img src="../diagrams/SQL/query.png" alt="Letter" class="w-1/1 mb-4">
+                <figcaption class="text-center text-sm text-gray-600">Figure 1: Web app that creates a description of the dataset</figcaption>
+            </figure>
+
+
+            <h2 class="font-bold mb-4">Core Features</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Dataset Upload and Management:</strong>
+                    <p>Users can seamlessly upload and manage datasets without needing technical expertise.</p>
+                </li>
+                <li><strong>Natural Language Processing:</strong>
+                    <p>The application translates human-readable questions into structured operations, reducing the need for technical knowledge of query languages.</p>
+                </li>
+                <li><strong>Dynamic Insights:</strong>
+                    <p>Users can explore data and gain insights interactively, receiving responses in real time.</p>
+                </li>
+                <li><strong>Descriptive Analytics:</strong>
+                    <p>High-level summaries of datasets are generated to provide users with a quick understanding of the data's structure and content.</p>
+                </li>
+            </ul>
+            <h2 class="font-bold mb-4">Applications</h2>
+            <p>This project is designed for users who need a simplified interface to work with complex datasets. It is ideal for:</p>
+            <ul class="list-disc list-inside space-y-2">
+                <li>Business analysts seeking quick insights from datasets.</li>
+                <li>Non-technical users who need to query and understand data without writing code.</li>
+                <li>Organizations aiming to integrate natural language interfaces into their data workflows.</li>
+            </ul>
+            <p>This platform provides an accessible and efficient solution for extracting meaningful insights from data, bridging the gap between technical systems and user-friendly interfaces.</p>
+        </div>
         <a href="../index.html" class="block mt-6 text-primary hover:underline">← Back to Portfolio</a>
     </div>
 </body>

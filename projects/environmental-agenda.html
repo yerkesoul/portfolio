@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,17 +8,274 @@
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body class="bg-background text-foreground">
+    <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
+        <ul class="flex space-x-4 justify-end">
+            <li><a href="https://github.com/yerkesoul/Environmental-agenda-detection" class="text-black">Code on Github</a></li>
+            <li><a href="../index.html" class="text-black">Back to Portfolio</a></li>
+        </ul>
+    </nav>
     <div class="container py-10">
         <h1 class="text-4xl font-bold mb-6">Environmental Agenda Detection</h1>
         <p class="text-secondary mb-4">Date: 2023</p>
         <p class="mb-4">Individual Research on Environmental Policy Detection</p>
         <ul class="list-disc ml-6 space-y-3">
             <li>Built text classification models using political data from the Manifesto Corpus.</li>
-<li>Developed one-step and two-step classification models using BERT, RoBERTa, and XLM-RoBERTa.</li>
-<li>Implemented sophisticated NLP techniques for accurate agenda detection.</li>
-<li>Achieved significant improvements in classification accuracy compared to baseline models.</li>
+            <li>Developed one-step and two-step classification models using BERT, RoBERTa, and XLM-RoBERTa.</li>
+            <li>Implemented sophisticated NLP techniques for accurate agenda detection.</li>
+            <li>Achieved significant improvements in classification accuracy compared to baseline models.</li>
         </ul>
-        <a href="../index.html" class="block mt-6 text-primary hover:underline">← Back to Portfolio</a>
+        <h2 class="text-3xl font-bold mt-10 mb-6">Poster Presentation</h2>
+        <h3 class="text-2xl font-bold mb-4">Introduction</h3>
+        <figure>
+            <img src="../diagrams/environmental/MP-Logo-final_600dpi.png" alt="Manifesto Project Logo" class="w-1/2 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 1: Manifesto Project Logo</figcaption>
+        </figure>
+        <p class="mb-6">This work presents a binary classification model that uses hierarchical topic data from the Manifesto Political Corpus to determine if a sentence pertains to environmental protection.</p>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">Data</h3>
+        <p>The Manifesto Corpus is a comprehensive collection of multilingual, annotated electoral programs. Version 2022a of Manifesto Project Dataset is used for the current analysis. The data from 1216 political parties from 1945 to 2022 was sourced from 779 elections in 56 democracies.</p>
+        <p>There are 139 categories, which are assigned to 7 policy areas (domains).</p>
+        <figure>
+            <img src="../diagrams/environmental/general.png" alt="Distribution of the categories among seven policy areas of the Manifesto Corpus" class="w-1/2 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 2: Distribution of the categories among seven policy areas of the Manifesto Corpus</figcaption>
+        </figure>
+        <p class="mb-6">Datasets used for cross-sector transferability evaluation:</p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>The environmental claim detection dataset is a dataset for detecting real-world environmental claims made by companies.</li>
+            <li>The U.S. Securities and Exchange Commission (SEC) 10-K files dataset is an annual regulatory filings in which listed companies in the US are required to self-identify climate-related risks that are material to their business.</li>
+        </ul>
+        <table class="table-auto w-full mt-4 mb-6">
+            <thead>
+                <tr>
+                    <th>№ Sentences</th>
+                    <th>Positive class</th>
+                    <th>Negative class</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Manifesto train dataset</td>
+                    <td>5600</td>
+                    <td>50400</td>
+                </tr>
+                <tr>
+                    <td>Manifesto test dataset</td>
+                    <td>77385</td>
+                    <td>7475</td>
+                </tr>
+                <tr>
+                    <td>Environmental claims</td>
+                    <td>665</td>
+                    <td>1982</td>
+                </tr>
+                <tr>
+                    <td>10-K files</td>
+                    <td>125</td>
+                    <td>3175</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">Motivation</h3>
+        <figure>
+            <img src="../diagrams/environmental/YearsEP.png" alt="The frequency with which the environmental protection category appears in electoral campaigns between 1946 and 2021" class="w-1/2 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 3: The frequency with which the environmental protection category appears in electoral campaigns between 1946 and 2021</figcaption>
+        </figure>
+        <figure>
+            <img src="../diagrams/environmental/top10.png" alt="The ten most frequent categories in the Manifesto corpus" class="w-1/2 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 4: The ten most frequent categories in the Manifesto corpus</figcaption>
+        </figure>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">Research Goals</h3>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>Conduct a series of experiments to reach the best results in a binary text classification task for environmental agenda detection using only the Manifesto corpus data.</li>
+            <li>Utilizing environmental datasets from the financial sector, evaluate the model's cross-sector applicability.</li>
+        </ul>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">Approach</h3>
+        <p>Due to the hierarchical nature of the corpus, two methods were applied:</p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>The one-step classification method is an approach that focuses solely on the category, ignoring the domain label.</li>
+            <li>The two-step classification method involves the use of both domain and category labels.</li>
+        </ul>
+        <figure>
+            <img src="../diagrams/environmental/twostep.png" alt="Model architecture utilizing the two-step classification method" class="w-1/4 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 5: Model architecture utilizing the two-step classification method</figcaption>
+        </figure>
+        <p class="mb-6">The text classification model for identifying environmental protection context is developed through four steps:</p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>Compare various balance combinations of the positive class by applying machine learning models to both methods.</li>
+            <li>Select the top 3 balance combinations and apply a large language model XLM-RoBERTa.</li>
+            <li>Optimization.</li>
+            <li>Evaluating the cross-sector transferability of the best-performing model.</li>
+        </ul>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">Results</h3>
+        <table class="table-auto w-full mt-4 mb-6">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Model</th>
+                    <th>Positive class %</th>
+                    <th>Accuracy</th>
+                    <th>F1 Score (Weighted)</th>
+                    <th>Macro Average</th>
+                    <th>Positive class F1</th>
+                    <th>Negative class F1</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>One-step</td>
+                    <td>10%</td>
+                    <td>0.93</td>
+                    <td>0.94</td>
+                    <td>0.81</td>
+                    <td>0.96</td>
+                    <td>0.66</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Two-step: domain</td>
+                    <td>40%</td>
+                    <td>0.80</td>
+                    <td>0.80</td>
+                    <td>0.78</td>
+                    <td>0.84</td>
+                    <td>0.71</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Two-step: category</td>
+                    <td>30%</td>
+                    <td>0.94</td>
+                    <td>0.94</td>
+                    <td>0.93</td>
+                    <td>0.96</td>
+                    <td>0.89</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Two-step: combination</td>
+                    <td>30%, 40%</td>
+                    <td>0.69</td>
+                    <td>0.61</td>
+                    <td>0.53</td>
+                    <td>0.80</td>
+                    <td>0.26</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="mb-6">The parameters of the XLM-RoBERTa model:</p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>Maximum sequence length: 151 or 135. There is an option because the data for tokenization changed depending on the balance combination.</li>
+            <li>Training batch size: 16</li>
+            <li>Learning rate: 2e-5.</li>
+            <li>Optimizer: Adam optimization algorithm</li>
+        </ul>
+        <table class="table-auto w-full mt-4 mb-6">
+            <thead>
+                <tr>
+                    <th>Model №</th>
+                    <th>Train dataset</th>
+                    <th>Test dataset</th>
+                    <th>Accuracy</th>
+                    <th>F1 score (weighted)</th>
+                    <th>Macro Average</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Manifesto</td>
+                    <td>Manifesto</td>
+                    <td>0.93</td>
+                    <td>0.94</td>
+                    <td>0.81</td>
+                    <td>0.61</td>
+                    <td>0.71</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Manifesto</td>
+                    <td>Environmental claims</td>
+                    <td>0.77</td>
+                    <td>0.78</td>
+                    <td>0.73</td>
+                    <td>0.52</td>
+                    <td>0.77</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Environmental claims</td>
+                    <td>Manifesto</td>
+                    <td>0.91</td>
+                    <td>0.91</td>
+                    <td>0.69</td>
+                    <td>0.49</td>
+                    <td>0.39</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Manifesto</td>
+                    <td>10-K files</td>
+                    <td>0.93</td>
+                    <td>0.94</td>
+                    <td>0.70</td>
+                    <td>0.3</td>
+                    <td>0.74</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>10-K files</td>
+                    <td>Manifesto</td>
+                    <td>0.91</td>
+                    <td>0.87</td>
+                    <td>0.48</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">Error Analysis</h3>
+        <p>When the model was tested on the 84860-sentence test set of the manifesto corpus after being trained on the Manifesto dataset, it predicted incorrectly 5586 sentences.</p>
+        <figure>
+            <img src="../diagrams/environmental/baseline_fp.png" alt="The Top 10 categories where the model mispredicted sentences as positive EP category (Manifesto test dataset)" class="w-1/2 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 6: The Top 10 categories where the model mispredicted sentences as positive EP category (Manifesto test dataset)</figcaption>
+        </figure>
+        <p class="mb-6">False positive instances accounted for 3432 of the 5586 incorrectly predicted sentences, or 61 percent of the total. Examples:</p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>Sentence: <strong>'Our energy consumption must be reduced'.</strong> True label: 'Sustainability: Positive'.</li>
+            <li>Sentence: <strong>'Reduce CO2 emissions from agriculture'.</strong> True label: 'Agriculture and Farmers: Positive'.</li>
+        </ul>
+        <p class="mb-6">False negative instances made up 2154 of the 5586 incorrectly predicted sentences, or 39 percent of the total. Examples:</p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>Sentence: <strong>'The main sectoral proposals can be summarized as follows:'</strong></li>
+            <li>Sentence: <strong>'What problems do we consider to be key?'</strong></li>
+        </ul>
+        <figure>
+            <img src="../diagrams/environmental/corpus_dup.png" alt="The distribution of duplicates in the Manifesto corpus based on how many times they are repeated" class="w-1/2 mb-4">
+            <figcaption class="text-center text-sm text-gray-600">Figure 7: The distribution of duplicates in the Manifesto corpus based on how many times they are repeated</figcaption>
+        </figure>
+        <p class="mb-6">The corpus contains 1623580 annotated sentences, with 63821 repeated. 50507 of these are exact duplicates, indicating 13314 repetitions are in separate categories.</p>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">Future Directions</h3>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>Certain categories make up the majority of the false error cases.</li>
+            <li>Duplication errors should be considered before creating the datasets.</li>
+            <li>The specific annotation method for the Manifesto corpus should be considered.</li>
+        </ul>
+        
+        <h3 class="text-2xl font-bold mt-6 mb-4">References</h3>
+        <ul class="list-disc ml-6 space-y-3">
+            <li>[1] Pola Lehmann, Tobias Burst, Theres MatthieÃŸ, Sven Regel, Andrea Volkens, Bernhard WeÃŸels, and Lisa Zehnter. The manifesto data collection. manifesto project (mrg/cmp/marpor). version 2022a, 2022.</li>
+            <li>[2] Dominik Stammbach, Nicolas Webersinke, Julia Anna Bingler, Mathias Kraus, and Markus Leippold. Environmental claim detection, 2023.</li>
+            <li>[3] Andres Velez-Calle and Cristina Robledo-Ardila. Exploring the u.s. securities and exchange commission’s edgar database by sampling joint venture contracts. International Journal of Disclosure and Governance, 17, 09 2020.</li>
+        </ul>
     </div>
 </body>
 </html>

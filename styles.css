@@ -34,23 +34,27 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+  padding-top: 4rem; /* Add padding to avoid overlap with topbar */
 }
 
 @media (min-width: 640px) {
   .container {
     padding: 0 2rem;
+    padding-top: 4rem; /* Add padding to avoid overlap with topbar */
   }
 }
 
 @media (min-width: 768px) {
   .container {
     padding: 0 4rem;
+    padding-top: 4rem; /* Add padding to avoid overlap with topbar */
   }
 }
 
 @media (min-width: 1024px) {
   .container {
     padding: 0 6rem;
+    padding-top: 4rem; /* Add padding to avoid overlap with topbar */
   }
 }
 
@@ -76,6 +80,50 @@ body {
 .skill-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* More shadow on hover */
+}
+
+.skill-icon {
+  width: 50px; /* Set the width */
+  height: 50px; /* Set the height */
+  object-fit: contain; /* Ensure the image fits within the specified dimensions */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.skill-icon:hover {
+  transform: translateY(-5px); /* Lift the icon on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* More shadow on hover */
+}
+
+.icons-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 icons per row */
+  gap: 1rem; /* Adjust the gap between icons as needed */
+}
+
+.skill-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.skill-label {
+  display: none; /* Hide the label by default */
+  position: absolute;
+  bottom: -20px; /* Position the label below the icon */
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  color: white; /* White text */
+  padding: 2px 8px; /* Padding */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 12px; /* Smaller font size */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.skill-wrapper:hover .skill-label {
+  display: block; /* Show the label on hover */
 }
 
 .project-card {
@@ -127,4 +175,19 @@ body {
 #hero {
   background-color: white;
   color: var(--foreground);
+}
+
+.skills-section {
+  background-color: #f9f9f9; /* Light grey background */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+  padding: 1rem; /* Padding inside the section */
+  margin-bottom: 2rem; /* Space between sections */
+}
+
+.skills-section h3 {
+  margin-bottom: 1rem; /* Space below the section title */
+  font-size: 1.5rem; /* Font size for the section title */
+  font-weight: bold; /* Bold font for the section title */
+  text-align: center; /* Center align the section title */
 }
