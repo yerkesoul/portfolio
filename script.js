@@ -20,7 +20,7 @@ const projects = [
     date: "2024",
     description: `
       <img src="pictures/thesis_picture.png" alt="Master Thesis Picture" class="w-full h-auto mb-4">
-      Assessment of Map Navigation and Spatial Reasoning Abilities of Large Language Models
+      Exploration of the spatial reasoning and map traversal capabilities of LLMs through an interactive, dialogue-driven Mapnavigation game, that I have developed.
     `,
     file: "projects/master-thesis.html"
   },
@@ -30,17 +30,16 @@ const projects = [
     date: "2023",
     description: `
       <img src="pictures/manifesto.png" alt="Environmental Agenda Detection Picture" class="w-full h-auto mb-4">
-      Individual Research on Environmental Policy Detection
-    `,
+      Individual Research on Environmental Policy Detection: development of text classification models using BERT, RoBERTa, and XLM-RoBERTa using political data from the Manifesto Corpus.`,
     file: "projects/environmental-agenda.html"
   },
   {
-    title: "Guess What Game",
+    title: "Guess What Game: CV + NLP",
     slug: "guess-what",
     date: "2022",
     description: `
       <img src="pictures/guesswhat_icon.png" alt="Guess What Game Picture" class="w-full h-auto mb-4">
-      Computer Vision + NLP Game
+      Computer Vision and Natural Language Processing Project. Replicating the model of trained the MS-COCO dataset in ensemble with the multi-layer perceptron (MLP) and LSTM-processed dialogue history.
     `,
     file: "projects/guess-what.html"
   },
@@ -50,7 +49,7 @@ const projects = [
     date: "2024",
     description: `
       <img src="pictures/Telegram_chatbot.png" alt="ChatBot for Charity Picture" class="w-full h-auto mb-4">
-      Arman Project Chatbot
+      Deploying a Telegram chatbot for a Arman charity project on Amazon Web Services (AWS) using EC2 and S3 services.
     `,
     file: "projects/charity-chatbot.html"
   },
@@ -60,7 +59,7 @@ const projects = [
     date: "2023",
     description: `
       <img src="pictures/sql_nlp_icon.png" alt="NLP to SQL Translator Picture" class="w-full h-auto mb-4">
-      Translating Natural Language Queries to SQL
+      Building  web application that enables users to interact with datasets through natural language queries and getting descriptions of those datasets. 
     `,
     file: "projects/nlp-to-sql.html"
   },
@@ -70,7 +69,7 @@ const projects = [
     date: "2022",
     description: `
       <img src="pictures/subjectivity.png" alt="Subjectivity Classification Picture" class="w-full h-auto mb-4">
-      Classifying Text as Subjective or Objective
+    Data mining project on subjectivity classification of publishers by traning the BERT-base model on the New York Times Annotated Corpus(NYT).
     `,
     file: "projects/subjectivity-classification.html"
   },
@@ -80,7 +79,7 @@ const projects = [
     date: "2022",
     description: `
       <img src="pictures/twitter_icon.png" alt="Twitter Sentiment Analysis Picture" class="w-full h-auto mb-4">
-      Analyzing Sentiment in Twitter Posts
+      Data mining project: Mining, Collection, transforming Twitter Posts for sentiment analysis.
     `,
     file: "projects/sentiment-analysis-twitter.html"
   }
