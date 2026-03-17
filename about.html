@@ -9,7 +9,6 @@
 </head>
 <body class="bg-background text-foreground">
     <div id="app">
-        <!-- Topbar -->
         <nav id="topbar" class="fixed top-0 left-0 right-0 bg-white shadow-lg">
             <ul class="flex space-x-4 justify-end">
                 <li><a href="index.html#hero" class="text-black">Home</a></li>
@@ -19,30 +18,27 @@
             </ul>
         </nav>
 
-        <!-- Main Content -->
         <div id="main-content" class="mt-16 px-4">
-            <!-- About Section -->
             <section id="about" class="py-20">
                 <h2 class="text-3xl font-bold text-center text-primary mb-8">About Me</h2>
                 <div class="flex flex-col md:flex-row">
-                    <!-- Image Section -->
                     <div class="md:w-1/3 flex-shrink-0">
                         <img src="pictures/yerkezhan.png" alt="Yerkezhan Abdullayeva" class="w-full h-auto object-cover">
                     </div>
 
-                    <!-- Text Section -->
                     <div class="md:w-2/3 pl-6 text-left space-y-6">
-                        <!-- CHANGE 2: updated about text -->
                         <p class="text-lg">
-                            I am an NLP Developer and Machine Learning Engineer with 3+ years of experience building and deploying production-grade AI systems. I currently work at Nalantis (Belgium), where I build multilingual semantic information extraction services and RAG pipelines for enterprise clients. My interests span natural language processing, generative AI, and applied LLM research.
+                            I am an NLP Developer and Machine Learning Engineer with 3+ years of experience building and deploying production-grade AI systems. I currently work at Nalantis (Belgium), where I build multilingual semantic information extraction services for enterprise clients. My interests span natural language processing, generative AI, and applied LLM research.
                         </p>
                         <p class="text-lg">
-                            I hold an M.Sc. in Cognitive Systems from Universität Potsdam, Germany, and a B.Sc. in Computational Linguistics from Al-Farabi Kazakh National University, Kazakhstan. My master's thesis on LLM spatial reasoning was published as a conference paper. Previously, I worked as an NLP Data Analyst at UNICEPTA Corporate Intelligence in Berlin, where a team of two effectively replaced an entire department's workflow through custom ML modules.
+                            I hold an M.Sc. in Cognitive Systems from Universität Potsdam, Germany, and a B.Sc. in Computational Linguistics from Al-Farabi Kazakh National University, Kazakhstan. For my master's thesis I designed and built five map traversal games to evaluate the spatial reasoning capabilities of large language models, testing 15 models including GPT-4, Llama-3, and Claude-3. The results were published as a conference paper — <a href="https://doi.org/10.48550/arXiv.2406.14035" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://doi.org/10.48550/arXiv.2406.14035</a>. Previously, I worked as an NLP Data Analyst at UNICEPTA Corporate Intelligence in Berlin, where a team of two effectively replaced an entire department's workflow through custom ML modules.
                         </p>
 
-                        <!-- Individual Recommendation Windows -->
                         <div class="py-10 bg-gray-100 rounded-md shadow-md mx-auto max-w-4xl mt-10">
+                            <h3 class="text-xl font-bold text-center mb-6">Recommendation Letters</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                                <!-- 1. Prof. Dr. David Schlangen -->
                                 <div class="p-4 border border-gray-300 rounded-md bg-white text-sm">
                                     <p class="font-bold">
                                         <a href="https://www.ling.uni-potsdam.de/~das/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Prof. Dr. David Schlangen</a>
@@ -52,6 +48,19 @@
                                         I can unreservedly recommend Yerkezhan for any position in Natural Language Processing, or more generally Artificial Intelligence or Data Analysis where knowledge of state of the art programming and analysis methods is required. She will be a great addition to any team, as she was to my research group.
                                     </p>
                                 </div>
+
+                                <!-- 2. Kristof Vannotten -->
+                                <div class="p-4 border border-gray-300 rounded-md bg-white text-sm">
+                                    <p class="font-bold">
+                                        <a href="https://www.linkedin.com/in/kristof-vannotten/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Kristof Vannotten</a>
+                                    </p>
+                                    <p class="text-xs italic">Chief Technology Officer, Nalantis</p>
+                                    <p class="mt-2">
+                                        What distinguishes Yerkezhan is her ability to combine machine learning development with production-minded engineering. She not only implemented NLP features, but also worked effectively within our deployment and CI/CD processes. She actively explored new NLP techniques, trained custom models, and contributed to early work involving retrieval-augmented generation and large language model integration. Beyond technical ability, Yerkezhan is reliable, collaborative, and quick to take ownership.
+                                    </p>
+                                </div>
+
+                                <!-- 3. Thiago de Sousa Silveira -->
                                 <div class="p-4 border border-gray-300 rounded-md bg-white text-sm">
                                     <p class="font-bold">
                                         <a href="https://www.linkedin.com/in/thiago-de-sousa-silveira-58175890/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Thiago de Sousa Silveira</a>
@@ -61,21 +70,13 @@
                                         I highly recommend Yerkezhan Abdullayeva as a dedicated and professional Data Analyst. As her direct supervisor for her internship at Unicepta Corporate Intelligence, she consistently demonstrated enthusiasm and commitment to producing high-quality work. Yerkezhan implemented data processing modules to prepare data for NLP tasks, performing thorough analyses on unstructured textual documents and generating insightful reports. Her technical and problem-solving skills have shown significant growth, particularly in Python and data processing.
                                     </p>
                                 </div>
-                                <!-- CHANGE 3: new Nalantis recommendation card -->
-                                <div class="p-4 border border-gray-300 rounded-md bg-white text-sm">
-                                    <p class="font-bold">Kristof Vannotten</p>
-                                    <p class="text-xs italic">Chief Technology Officer, Nalantis</p>
-                                    <p class="mt-2">
-                                        What distinguishes Yerkezhan is her ability to combine machine learning development with production-minded engineering. She not only implemented NLP features, but also worked effectively within our deployment and CI/CD processes. She actively explored new NLP techniques, trained custom models, and contributed to early work involving retrieval-augmented generation and large language model integration. Beyond technical ability, Yerkezhan is reliable, collaborative, and quick to take ownership.
-                                    </p>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Footer -->
             <footer class="bg-primary text-primary-foreground py-4 mt-10">
                 <div class="container mx-auto text-center">
                     <p>&copy; <span id="current-year"></span> Yerkezhan Abdullayeva | Portfolio</p>
