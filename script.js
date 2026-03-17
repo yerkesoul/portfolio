@@ -144,8 +144,6 @@ function createExperienceCard(exp) {
 
 // Populate sections
 document.addEventListener('DOMContentLoaded', () => {
-  // Remove skills population
-
   // Populate projects
   const projectsGrid = document.getElementById('projects-grid');
   projects.forEach(project => {
@@ -176,9 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
   heroSection.innerHTML = `
     <div class="relative z-20 flex items-center justify-center space-x-8 p-4">
       <div class="text-left space-y-6">
-        <h1 class="text-5xl mb-4">Hi, I am</h1> <!-- Unbold -->
+        <h1 class="text-5xl mb-4">Hi, I am</h1>
         <h1 class="text-5xl font-bold mb-4">Yerkezhan Abdullayeva</h1>
-        <h2 class="text-2xl text-gray-700 mb-8">NLP Data Analyst | Machine Learning Engineer | AI Researcher</h2>
+        <!-- CHANGE 1: updated job title -->
+        <h2 class="text-2xl text-gray-700 mb-8">NLP Developer | AI Researcher | Machine Learning Engineer</h2>
         <div class="flex flex-wrap gap-6 text-gray-700">
           <a href="mailto:yerkezhan.abdullayeva@gmail.com" class="flex items-center gap-2 hover:text-primary transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
@@ -198,13 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
           Berlin, Germany
         </p>
       </div>
-      <div class="w-96 h-96 mx-auto rounded-full overflow-hidden border-4 border-primary/20 mb-8"> <!-- 1.5 times bigger -->
+      <div class="w-96 h-96 mx-auto rounded-full overflow-hidden border-4 border-primary/20 mb-8">
         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portfolio_photo-errqhuAcOp8zYAuerKSeX2Yd4baQdd.png" alt="Yerkezhan Abdullayeva" class="w-full h-full object-cover">
       </div>
     </div>
-    <div class="text-right mt-8"> <!-- Align to the right -->
+    <div class="text-right mt-8">
         <a href="#projects" class="inline-block px-4 py-2 rounded transition-colors bg-gray-800 text-white shadow-md hover:bg-gray-900">My Projects</a>
     </div>
   `;
 });
-
